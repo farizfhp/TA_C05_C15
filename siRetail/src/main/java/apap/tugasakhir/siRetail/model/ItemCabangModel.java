@@ -10,50 +10,49 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Entity
-@Table(name = "cabang")
+@Table(name = "item_cabang")
 
-public class CabangModel {
+public class ItemCabangModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCabang;
+    private Long idItemCabang;
 
     @NotNull
-    @Size(max = 30)
+    @Column(nullable = false)
+    private String uuidItem;
+
+    @NotNull
+    @Size(max = 50)
     @Column(nullable = false)
     private String nama;
 
     @NotNull
+    @Column(nullable = false)
+    private Integer harga;
+
+    @NotNull
+    @Column(nullable = false)
+    private Integer stok;
+
+    @NotNull
     @Size(max = 100)
     @Column(nullable = false)
-    private String alamat;
+    private String kategori;
 
     @NotNull
     @Column(nullable = false)
-    private Integer ukuran;
+    private Integer idPromo;
 
-    @NotNull
-    @Column(nullable = false)
-    private Integer status;
-
-    @NotNull
-    @Size(max = 20)
-    @Column(nullable = false)
-    private String noTelp;
-
-    //Relasi dengan UserModel
+    //Relasi dengan CabangModel
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_user", referencedColumnName = "idUser", nullable = false)
+    @JoinColumn(name = "id_cabang", referencedColumnName = "idCabang", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private UserModel user;
-
-    //Relasi dengan ItemCabangModel
-    @OneToMany(mappedBy = "cabang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ItemCabangModel> listItemCabang;
+    private CabangModel cabang;
 }
