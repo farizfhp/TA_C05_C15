@@ -10,13 +10,26 @@
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 190xxx | Nama 1 | 1 2 3 |
-| 190xxx | Nama 2 | 4 5 6 |
+| 1906399676 | Josia Priscilla Pittauli | 5 6 |
+| 1906305833 | Fariz Habibie Permana | 2 3 |
+| 1906399291 | Az-Zahra Syamsa Rahmita Putri | 1 |
+| 1906399770 | Fahira Anya Katili | 4 |
 ---
-**Kontrak Tahap x Tugas Akhir**
+**Kontrak Tahap 2 Tugas Akhir**
 
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
 | ----------| --- | ---------- | 
-| 190xxx | Nama 1 | 7 8 9 |
-| 190xxx | Nama 2 | 10 11 12 |
+| 1906399676 | Josia Priscilla Pittauli | 12 18 |
+| 1906305833 | Fariz Habibie Permana | 8 10 11 |
+| 1906399291 | Az-Zahra Syamsa Rahmita Putri | 7 13 13a 13b |
+| 1906399770 | Fahira Anya Katili | 9 16 |
+---
+**Kontrak Tahap 3 Tugas Akhir**
+
+| NPM | Nama Lengkap | Fitur yang akan diselesaikan  |
+| ----------| --- | ---------- | 
+| 1906399676 | Josia Priscilla Pittauli |  |
+| 1906305833 | Fariz Habibie Permana | 14 |
+| 1906399291 | Az-Zahra Syamsa Rahmita Putri | 13 13a 13b |
+| 1906399770 | Fahira Anya Katili | 15 16 |
 ---
