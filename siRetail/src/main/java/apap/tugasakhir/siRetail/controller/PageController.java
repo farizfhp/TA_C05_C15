@@ -11,7 +11,7 @@ public class PageController {
     @Autowired
 //    private UserService userService;
 
-    @RequestMapping("")
+    @RequestMapping("/")
     public String home (){
         return "home";
     }

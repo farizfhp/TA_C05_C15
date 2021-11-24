@@ -1,8 +1,8 @@
 package apap.tugasakhir.siRetail.repository;
 
-import apap.tugasakhir.siRetail.model.UserModel;
+import apap.tugasakhir.siRetail.model.CabangModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CabangDB extends JpaRepository<UserModel,Long> {
-    UserModel findByIdCabang(String idCabang);
+public interface CabangDB extends JpaRepository<CabangModel,Long> {
+    CabangModel findByIdCabang(Long idCabang);
 }
