@@ -26,12 +26,10 @@
                 <a th:href="@{/film/viewall}"class="mx-2 btn btn-warning">Lihat semua film</a>
                 <a th:href="@{/film/add}" class="mx-2 btn btn-outline-warning">Tambah film</a>
             </div>
-
-            <span>
-                <div class=" my-3 d-flex justify-content-center">
-                    <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah User Baru</a>
-                </div>
-            </span>
+            <div class=" my-3 d-flex justify-content-center">
+                <a th:href="@{/film/viewall}"class="mx-2 btn btn-warning">Lihat semua user</a>
+                <a th:href="@{/film/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
+            </div>
             <div class=" my-3 d-flex justify-content-center">
             <a th:href="@{/user/changepassword(username=${#httpServletRequest.userPrincipal.name})}" class="mx-2 btn btn-outline-warning">Ganti Password</a>
             </div>
