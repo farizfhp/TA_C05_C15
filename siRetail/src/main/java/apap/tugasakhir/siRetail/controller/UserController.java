@@ -7,12 +7,9 @@ import apap.tugasakhir.siRetail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -40,5 +37,40 @@ public class UserController {
         userService.addUser(user);
         model.addAttribute("user", user);
         return "redirect:/";
+    }
+
+    @GetMapping("/viewall")
+    public String listUser(Model model, final HttpServletRequest httpServletRequest) {
+        List<UserModel> listUser = userService.getListUser();
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        model.addAttribute("role",role);
+        model.addAttribute ( "listUser",listUser);
+        model.addAttribute("classActiveSettings","active");
+        return "viewall-user" ;
+    }
+
+    @GetMapping("/update/{idUser}")
+    public String updateUserForm(
+            @PathVariable Long idUser,
+            Model model,
+            final HttpServletRequest httpServletRequest
+    ){
+        UserModel user = userService.getUserById(idUser);
+        List<RoleModel> listRole = roleService.getListRole();
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        model.addAttribute("role",role);
+        model.addAttribute( "user",user);
+        model.addAttribute("listRole", listRole);
+        return"form-update-user" ;
+    }
+
+    @PostMapping("/update")
+    public String updateUserSubmit(
+            @ModelAttribute UserModel user,
+            Model model
+    ){
+        userService.updateUser(user);
+        model.addAttribute( "user",user.getUsername());
+        return "update-user";
     }
 }

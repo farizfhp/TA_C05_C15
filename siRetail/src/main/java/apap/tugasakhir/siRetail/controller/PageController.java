@@ -17,7 +17,11 @@ public class PageController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String home(@ModelAttribute UserModel user, Model model) {
+    public String home(@ModelAttribute UserModel user,
+                       Model model,
+                       final HttpServletRequest httpServletRequest) {
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        model.addAttribute("role",role);
         model.addAttribute("idUser", user.getIdUser());
         return "home";
     }

@@ -19,16 +19,14 @@
             <h2 style="text-align: center" th:text=" 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
             <h2>Selamat datang di SiRetail</h2>
             <div class="d-flex justify-content-center">
-                <a th:href="@{/bioskop/viewall}"class="mx-2 btn btn-warning">Lihat semua bioskop</a>
-                <a th:href="@{/bioskop/add}"class="mx-2 btn btn-outline-warning">Tambah bioskop</a>
+                <a th:href="@{/cabang/viewall}"class="mx-2 btn btn-warning">Lihat semua cabang</a>
+                <a th:href="@{/cabang/add}"class="mx-2 btn btn-outline-warning">Tambah cabang</a>
             </div>
             <div class=" my-3 d-flex justify-content-center">
-                <a th:href="@{/film/viewall}"class="mx-2 btn btn-warning">Lihat semua film</a>
-                <a th:href="@{/film/add}" class="mx-2 btn btn-outline-warning">Tambah film</a>
-            </div>
-            <div class=" my-3 d-flex justify-content-center">
-                <a th:href="@{/film/viewall}"class="mx-2 btn btn-warning">Lihat semua user</a>
-                <a th:href="@{/film/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
+                <a th:href="@{/user/viewall}"class="mx-2 btn btn-warning">Lihat semua user</a>
+                <span th:if="${role} == 'Kepala Retail'">
+                    <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
+                </span>
             </div>
             <div class=" my-3 d-flex justify-content-center">
 <!--            <a th:href="@{/user/changepassword(username=${#httpServletRequest.userPrincipal.name})}" class="mx-2 btn btn-outline-warning">Ganti Password</a>-->
