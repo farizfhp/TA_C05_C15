@@ -29,9 +29,11 @@
             <th th:text="${user.username}"></th>
             <td th:text="${user.name}"></td>
             <td th:text="${user.role.nama}"></td>
-            <td>
-                <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
-            </td>
+            <span th:if="${role} == 'Kepala Retail' or ${role} == 'Manager Cabang'">
+                <td>
+                    <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
+                </td>
+            </span>
         </tr>
         </tbody>
     </table>

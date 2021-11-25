@@ -28,7 +28,9 @@
             </div>
             <div class=" my-3 d-flex justify-content-center">
                 <a th:href="@{/user/viewall}"class="mx-2 btn btn-warning">Lihat semua user</a>
-                <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
+                <span th:if="${role} == 'Kepala Retail' or ${role} == 'Manager Cabang'">
+                    <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
+                </span>
             </div>
             <div class=" my-3 d-flex justify-content-center">
 <!--            <a th:href="@{/user/changepassword(username=${#httpServletRequest.userPrincipal.name})}" class="mx-2 btn btn-outline-warning">Ganti Password</a>-->

@@ -34,6 +34,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserModel getUserByUsername(String username) {
-        return userDb.findByUsername(username);
+        return userDB.findByUsername(username);
+    }
+
+    @Override
+    public UserModel getUserById(Long idUser) {
+        Optional<UserModel> user = userDB.findById(idUser);
+        if (user.isPresent()) {
+            return user.get();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateUser(UserModel user) {
+        userDB.save(user);
     }
 }
