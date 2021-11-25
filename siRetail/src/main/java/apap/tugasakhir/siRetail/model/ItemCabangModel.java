@@ -46,8 +46,7 @@ public class ItemCabangModel {
     @Column(nullable = false)
     private String kategori;
 
-    @NotNull
-    @Column(nullable = false)
+    @Column
     private Integer idPromo;
 
     //Relasi dengan CabangModel
