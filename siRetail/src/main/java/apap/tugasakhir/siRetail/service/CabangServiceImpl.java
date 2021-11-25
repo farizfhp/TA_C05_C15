@@ -1,6 +1,7 @@
 package apap.tugasakhir.siRetail.service;
 
 import apap.tugasakhir.siRetail.model.CabangModel;
+import apap.tugasakhir.siRetail.repository.CabangDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,11 @@ import javax.transaction.Transactional;
 @Transactional
 public class CabangServiceImpl implements CabangService{
 
+    @Autowired
+    CabangDB cabangDB;
+
     @Override
     public List<CabangModel> getListCabang() {
-        return null;
+        return cabangDB.findAll();
     }
 }
