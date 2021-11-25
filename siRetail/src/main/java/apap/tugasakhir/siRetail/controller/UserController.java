@@ -42,7 +42,6 @@ public class UserController {
     @GetMapping("/viewall")
     public String listUser(Model model, final HttpServletRequest httpServletRequest) {
         List<UserModel> listUser = userService.getListUser();
-        System.out.println(httpServletRequest.getRemoteUser());
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
         model.addAttribute("role",role);
         model.addAttribute ( "listUser",listUser);
@@ -53,10 +52,13 @@ public class UserController {
     @GetMapping("/update/{idUser}")
     public String updateUserForm(
             @PathVariable Long idUser,
-            Model model
+            Model model,
+            final HttpServletRequest httpServletRequest
     ){
         UserModel user = userService.getUserById(idUser);
         List<RoleModel> listRole = roleService.getListRole();
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        model.addAttribute("role",role);
         model.addAttribute( "user",user);
         model.addAttribute("listRole", listRole);
         return"form-update-user" ;
@@ -68,7 +70,7 @@ public class UserController {
             Model model
     ){
         userService.updateUser(user);
-        model.addAttribute( "user",user.getName());
+        model.addAttribute( "user",user.getUsername());
         return "update-user";
     }
 }

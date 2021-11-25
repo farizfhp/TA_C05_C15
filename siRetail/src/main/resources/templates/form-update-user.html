@@ -14,22 +14,38 @@
             <div class="card">
                 <div class="card-header">Ubah User</div>
                 <div class="card-body">
-                    <form th:action="@{/user/update}" th:object="${user}" method="POST">
-                        <input type="hidden" th:field="*{idUser}" />
-                        <input type="hidden" th:field="*{username}" />
-                        <input type="hidden" th:field="*{password}" />
-                        <label>Nama</label>
-                        <input type="text" name="name" class="form-control" />
+                    <span th:if="${role} == 'Kepala Retail'">
+                        <form th:action="@{/user/update}" th:object="${user}" method="POST">
+                            <input type="hidden" th:field="*{idUser}" />
+                            <input type="hidden" th:field="*{username}" />
+                            <input type="hidden" th:field="*{password}" />
+                            <label>Nama</label>
+                            <input type="text" name="name" class="form-control" />
 
-                        <label>Role</label>
-                        <select name="role" class="form-control">
-                            <option selected value=""> -- Pilih Role -- </option>
-                            <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
-                        </select>
-                        <br>
-                        <button type="submit" class="btn btn-warning">Simpan</button>
-                        <a class="btn btn-link btn-outline-info" href="/">Home</a>
-                    </form>
+                            <label>Role</label>
+                            <select name="role" class="form-control">
+                                <option selected value=""> -- Pilih Role -- </option>
+                                <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
+                            </select>
+                            <br>
+                            <button type="submit" class="btn btn-warning">Simpan</button>
+                            <a class="btn btn-link btn-outline-info" href="/">Home</a>
+                        </form>
+                    </span>
+                    <span th:if="${role} == 'Manager Cabang'">
+                        <form th:action="@{/user/update}" th:object="${user}" method="POST">
+                            <input type="hidden" th:field="*{idUser}" />
+                            <input type="hidden" th:field="*{username}" />
+                            <input type="hidden" th:field="*{password}" />
+                            <input type="hidden" th:field="*{role}" />
+                            <label>Nama</label>
+                            <input type="text" name="name" class="form-control" />
+
+                            <br>
+                            <button type="submit" class="btn btn-warning">Simpan</button>
+                            <a class="btn btn-link btn-outline-info" href="/">Home</a>
+                        </form>
+                    </span>
                 </div>
             </div>
         </div>

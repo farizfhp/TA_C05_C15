@@ -29,7 +29,17 @@
             <th th:text="${user.username}"></th>
             <td th:text="${user.name}"></td>
             <td th:text="${user.role.nama}"></td>
-            <span th:if="${role} == 'Kepala Retail' or ${role} == 'Manager Cabang'">
+            <span th:if="${role} == 'Kepala Retail'">
+                <td>
+                    <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
+                </td>
+            </span>
+            <span th:if="${role} == 'Manager Cabang' and ${user.role.nama} == 'Manager Cabang'">
+                <td>
+                    <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
+                </td>
+            </span>
+            <span th:if="${role} == 'Manager Cabang' and ${user.role.nama} == 'Staff Cabang'">
                 <td>
                     <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
                 </td>
@@ -37,7 +47,9 @@
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-primary" th:href="@{/user/add/}">Tambah User</a>
+    <span th:if="${role} == 'Kepala Retail'">
+        <a class="btn btn-primary" th:href="@{/user/add/}">Tambah User</a>
+    </span>
 
     <a class="btn btn-primary" href="/">Home</a>
 </div>
