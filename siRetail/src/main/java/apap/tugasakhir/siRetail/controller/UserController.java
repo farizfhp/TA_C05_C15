@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -40,5 +40,15 @@ public class UserController {
         userService.addUser(user);
         model.addAttribute("user", user);
         return "redirect:/";
+    }
+
+    @GetMapping("/viewall")
+    public String listUser(Model model) {
+        List<UserModel> listUser = userService.getListUser();
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getRole();
+        model.addAttribute("role",role);
+        model.addAttribute ( "listUser",listUser);
+        model.addAttribute("classActiveSettings","active");
+        return "viewall-user" ;
     }
 }
