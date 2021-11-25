@@ -5,5 +5,8 @@ import apap.tugasakhir.siRetail.model.UserModel;
 import java.util.List;
 
 public interface UserService {
-    List<UserModel> getListUser();
+    UserModel addUser(UserModel user);
+    String encrypt(String password);
+//    List<UserModel> getListUser();
+
 }
