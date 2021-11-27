@@ -10,10 +10,10 @@
 <body>
 <nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
 <div class="container">
-    <h2>Daftar Seluruh Cabang</h2>
-    <br>
 
     <div th:if="*{listCabang.size() !=0}">
+        <h2>Daftar Seluruh Cabang</h2>
+        <br>
         <table class="table">
             <thead>
             <tr>
