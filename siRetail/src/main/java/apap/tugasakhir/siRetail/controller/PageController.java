@@ -20,9 +20,11 @@ public class PageController {
     public String home(@ModelAttribute UserModel user,
                        Model model,
                        final HttpServletRequest httpServletRequest) {
+        if(userService.getUserByUsername(httpServletRequest.getRemoteUser())==null){
+            return "home";
+        }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
         model.addAttribute("role",role);
-        model.addAttribute("idUser", user.getIdUser());
         return "home";
     }
 
