@@ -42,14 +42,14 @@
                             </thead>
                             <tbody>
                             <tr th:each="itemCabang, iterationStatus : ${listItemCabang}"
-                                th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                                th:class="${iterationStatus.even} ? 'bg-light'">
                                 <td th:text="${iterationStatus.count}"></td>
                                 <td th:text="${itemCabang.idItemCabang}"></td>
                                 <td th:text="${itemCabang.nama}"></td>
                                 <td th:text="${itemCabang.harga}"></td>
                                 <td th:text="${itemCabang.stok}"></td>
                                 <td th:text="${itemCabang.kategori}"></td>
-                                <td th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>                                </td>
+                                <td th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
                                 <td th:unless="${itemCabang.idPromo != null}">
                                     <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}">Terapkan Promo</a>
                                 </td>
