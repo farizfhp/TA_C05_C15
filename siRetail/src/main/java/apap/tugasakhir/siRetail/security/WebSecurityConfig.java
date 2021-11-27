@@ -30,12 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder encoder(){
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
 
-//    @Qualifier("userDetailsServiceImpl")
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -44,12 +44,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        auth.inMemoryAuthentication()
-                .passwordEncoder(encoder)
-                .withUser("nontonFilm").password(encoder.encode("21cineplux"))
-                .roles("USER");
-    }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(encoder)
+//                .withUser("nontonFilm").password(encoder.encode("21cineplux"))
+//                .roles("USER");
+//    }
 }
