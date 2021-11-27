@@ -56,4 +56,5 @@ public class CabangModel {
     //Relasi dengan ItemCabangModel
     @OneToMany(mappedBy = "cabang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ItemCabangModel> listItemCabang;
+
 }
