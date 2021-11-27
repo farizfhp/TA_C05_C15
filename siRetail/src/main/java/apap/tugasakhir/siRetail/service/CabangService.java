@@ -8,4 +8,8 @@ public interface CabangService {
     List<CabangModel> getListCabang();
 
     void addCabang(CabangModel cabang);
+
+    void updateCabang(CabangModel cabang);
+
+    CabangModel getCabangByIdCabang(Long idCabang);
 }
