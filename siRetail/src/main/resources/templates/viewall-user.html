@@ -25,7 +25,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${listUser}">
+        <tr th:each="user, iterationStatus : ${listUser}"
+            th:class="${iterationStatus.even} ? 'bg-light'">
             <th th:text="${user.username}"></th>
             <td th:text="${user.name}"></td>
             <td th:text="${user.role.nama}"></td>

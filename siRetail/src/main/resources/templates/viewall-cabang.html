@@ -30,18 +30,20 @@
             </thead>
             <tbody>
             <tr th:each="cabang, iterationStatus : ${listCabang}"
-                th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                th:class="${iterationStatus.even} ? 'bg-light'">
                 <td th:text="${iterationStatus.count}"></td>
                 <td th:text="${cabang.idCabang}"></td>
                 <td th:text="${cabang.nama}"></td>
                 <td th:text="${cabang.noTelp}"></td>
                 <td th:text="${cabang.ukuran}"></td>
                 <td th:text="${cabang.listItemCabang.size()}"></td>
-                <td th:text="${cabang.status}"></td>
+                <td th:if="${cabang.status} == 0">Menunggu Persetujuan</td>
+                <td th:if="${cabang.status} == 1">Ditolak</td>
+                <td th:if="${cabang.status} == 2">Disetujui</td>
                 <td>
                     <a class="btn btn-sm btn-primary" th:href="@{/cabang/view(idCabang=${cabang.idCabang})}">Detail</a>
                 <td>
-                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/update/} + ${cabang.idCabang}">Update</a>
+                    <a class="btn btn-sm btn-warning" th:href="@{/cabang/update/} + ${cabang.idCabang}">Update</a>
                 </td>
             </tr>
             </tbody>

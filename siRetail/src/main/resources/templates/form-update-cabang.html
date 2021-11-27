@@ -12,10 +12,11 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Tambah Cabang Baru</div>
+                <div class="card-header">Update Cabang</div>
                 <div class="card-body">
-                    <form th:action="@{/cabang/add}" method="POST" th:object="${cabang}">
-                        <input type="hidden" value="2" name="status" />
+                    <form th:action="@{/cabang/update}" method="POST" th:object="${cabang}">
+                        <input type="hidden" th:field="*{status}" name="status" />
+                        <input type="hidden" th:field="*{idCabang}" name="idCabang" />
 
                         <label>Nama user</label>
                         <input type="hidden" th:field="*{user}"/>
@@ -23,24 +24,24 @@
                         <br>
 
                         <label>Nama cabang</label>
-                        <input required type="text" name="nama" class="form-control" />
+                        <input required type="text" name="nama" th:value="*{nama}" class="form-control" />
                         <br>
 
                         <label>Alamat cabang</label>
-                        <input required type="text" name="alamat" class="form-control" />
+                        <input required type="text" name="alamat" th:value="*{alamat}" class="form-control" />
                         <br>
 
                         <label>Nomor telepon cabang</label>
-                        <input required type="text" name="noTelp" class="form-control" />
+                        <input required type="text" name="noTelp" th:value="*{noTelp}" class="form-control" />
                         <br>
 
                         <label>Ukuran cabang (dalam m2)</label>
-                        <input required type="number" name="ukuran" class="form-control" />
+                        <input required type="number" name="ukuran" th:value="*{ukuran}" class="form-control" />
                         <br>
 
                         <br>
                         <button type="submit" class="btn btn-warning">Simpan</button>
-                        <a class="btn btn-link btn-outline-primary" href="/">Home</a>
+                        <a class="btn btn-link btn-outline-primary" th:href="@{/}">Home</a>
                     </form>
                 </div>
             </div>
