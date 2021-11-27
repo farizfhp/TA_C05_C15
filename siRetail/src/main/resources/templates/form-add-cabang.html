@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SiRetail</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Tambah Cabang Baru</div>
+                <div class="card-body">
+                    <form th:action="@{/cabang/add}" method="POST" th:object="${cabang}">
+                        <input type="hidden" value="2" name="status" />
+
+                        <label>Nama user</label>
+                        <input type="hidden" th:field="*{user}"/>
+                        <input type="text" readonly class="form-control" th:value="*{user.getName()}"/>
+
+                        <label>Nama cabang</label>
+                        <input required type="text" name="nama" class="form-control" />
+
+                        <label>Alamat cabang</label>
+                        <input required type="text" name="alamat" class="form-control" />
+
+                        <label>Nomor telepon cabang</label>
+                        <input required type="text" name="noTelp" class="form-control" />
+
+                        <label>Ukuran cabang (dalam m2)</label>
+                        <input required type="number" name="ukuran" class="form-control" />
+
+                        <br>
+                        <button type="submit" class="btn btn-warning">Simpan</button>
+                        <a class="btn btn-link btn-outline-info" href="/">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

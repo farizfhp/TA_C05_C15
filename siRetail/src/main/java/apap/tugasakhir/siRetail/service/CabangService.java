@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CabangService {
     List<CabangModel> getListCabang();
+
+    void addCabang(CabangModel cabang);
 }
