@@ -9,35 +9,38 @@
 </head>
 
 <body>
-<div class="container-fluid">
-    <h2>Hello !</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    Log In
-                </div>
-                <div class="card-body">
-                    <div th:if="${param.error}">
-                        <span style="color: red">Invalid username or password</span>
+<div class="container-fluid d-flex justify-content-center align-items-center position-absolute" style="min-height:80%;">
+    <div class="login-card w-75">
+        <h2 class="text-center">Hello !</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Log In
                     </div>
-                    <form th:action="@{/login}" method="POST">
-                        <div class="row form-group">
-                            <label class="col-sm-4">Username:</label>
-                            <input type="text" class="col-sm-8 form-control input-sm" name="username">
+                    <div class="card-body">
+                        <div th:if="${param.error}" class="mb-3">
+                            <span style="color: red">Invalid username or password</span>
                         </div>
-                        <div class="row form-group">
-                        <label class="col-sm-4">Password:</Label>
-                        <input type="password" class="col-sm-8 form-control input-sm" name="password">
-                        </div>
-                        <div class="row form-group">
-                            <button type="submit" class="btn btn-warning">Sign In</button>
-                        </div>
-                    </form>
+                        <form th:action="@{/login}" method="POST">
+                            <div class="row form-group">
+                                <label class="col-sm-4">Username:</label>
+                                <input type="text" class="col-sm-8 form-control input-sm" name="username">
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-sm-4">Password:</Label>
+                                <input type="password" class="col-sm-8 form-control input-sm" name="password">
+                            </div>
+                            <div class="row form-group justify-content-end">
+                                <button type="submit" class="btn btn-warning">Sign In</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>

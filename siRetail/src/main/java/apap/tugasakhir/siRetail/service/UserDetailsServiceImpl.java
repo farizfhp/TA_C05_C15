@@ -1,4 +1,4 @@
-package apap.tugasakhir.siRetail.security;
+package apap.tugasakhir.siRetail.service;
 
 import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.repository.UserDB;
@@ -21,6 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel user = userDB.findByUsername(username);
+//        System.out.println(user.getName());
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getNama()));
         return new User(user.getUsername(), user.getPassword(), grantedAuthorities);

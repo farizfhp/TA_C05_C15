@@ -37,14 +37,19 @@
                         Home<span class="sr-only">(current)</span>
                     </a>
                 </li>
-            </ul>
-            <ul class="navbar-nav mr-auto">
                 <li th:class="${activeTab == 'cabang'}? 'font-weight-bold' : null">
-                    <a class="nav-item nav-link active text-secondary" th:href="@{/bioskop/viewall}">
+                    <a class="nav-item nav-link active text-secondary" th:href="@{/cabang}">
                         Cabang<span class="sr-only">(current)</span>
                     </a>
                 </li>
             </ul>
+<!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li th:class="${activeTab == 'cabang'}? 'font-weight-bold' : null">-->
+<!--                    <a class="nav-item nav-link active text-secondary" th:href="@{/bioskop/viewall}">-->
+<!--                        Cabang<span class="sr-only">(current)</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
             <ul class="navbar-nav pull-right">
                 <a class="nav-item nav-link active" th:href="@{/logout}">Logout</a>
             </ul>
