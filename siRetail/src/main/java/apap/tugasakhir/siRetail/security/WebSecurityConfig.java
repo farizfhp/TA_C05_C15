@@ -35,8 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
-//    @Qualifier("userDetailsServiceImpl")
-
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -46,12 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(encoder)
-//                .withUser("nontonFilm").password(encoder.encode("21cineplux"))
-//                .roles("USER");
-//    }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.inMemoryAuthentication()
+                .passwordEncoder(encoder)
+                .withUser("nontonFilm").password(encoder.encode("21cineplux"))
+                .roles("USER");
+    }
 }

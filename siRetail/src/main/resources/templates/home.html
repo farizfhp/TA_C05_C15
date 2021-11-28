@@ -13,13 +13,19 @@
 
     <div class="d-flex justify-content-center">
         <div class="m-4">
-            <div th:unless="${message} == null">
-                <h3 th:text="${message}"></h3>
+            <div th:unless="${message} == null" class="card border border-dark rounded mb-5">
+                <div class="card-header h3">
+                    Info
+                </div>
+                <div class="card-body">
+                    <h4 th:text="${message}"></h4>
+                </div>
             </div>
-            <h2 style="text-align: center" th:text=" 'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
-            <h2>Selamat datang di SiRetail</h2>
+
+            <h2 style="text-align: center" th:text=" 'Hello ' + ${#httpServletRequest.remoteUser} + '!'">Login as</h2>
+            <h2 style="text-align: center">Selamat datang di SiRetail</h2>
             <div class="d-flex justify-content-center">
-                <a th:href="@{/cabang/viewall}"class="mx-2 btn btn-warning">Lihat semua cabang</a>
+                <a th:href="@{/cabang}"class="mx-2 btn btn-warning">Lihat semua cabang</a>
                 <a th:href="@{/cabang/add}"class="mx-2 btn btn-outline-warning">Tambah cabang</a>
             </div>
             <div class=" my-3 d-flex justify-content-center">

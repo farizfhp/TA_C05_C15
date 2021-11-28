@@ -25,23 +25,24 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${listUser}">
+        <tr th:each="user, iterationStatus : ${listUser}"
+            th:class="${iterationStatus.even} ? 'bg-light'">
             <th th:text="${user.username}"></th>
             <td th:text="${user.name}"></td>
             <td th:text="${user.role.nama}"></td>
             <span th:if="${role} == 'Kepala Retail'">
                 <td>
-                    <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
+                    <a class="btn btn-outline-primary" th:href="@{/user/update/} + ${user.idUser}">Update</a>
                 </td>
             </span>
             <span th:if="${role} == 'Manager Cabang' and ${user.role.nama} == 'Manager Cabang'">
                 <td>
-                    <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
+                    <a class="btn btn-outline-primary" th:href="@{/user/update/} + ${user.idUser}">Update</a>
                 </td>
             </span>
             <span th:if="${role} == 'Manager Cabang' and ${user.role.nama} == 'Staff Cabang'">
                 <td>
-                    <a class="btn btn-danger" th:href="@{/user/update/} + ${user.idUser}">Update</a>
+                    <a class="btn btn-outline-primary" th:href="@{/user/update/} + ${user.idUser}">Update</a>
                 </td>
             </span>
         </tr>

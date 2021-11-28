@@ -32,4 +32,3 @@
 | 1906399676 | Josia Priscilla Pittauli | - |
 | 1906399291 | Az-Zahra Syamsa Rahmita Putri | - |
 | 1906399770 | Fahira Anya Katili | - |
----

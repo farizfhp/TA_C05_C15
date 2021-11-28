@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav th:fragment="navbar(activeTab)" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand font-weight-bold text-warning" href="#">SiRetail</a>
+        <a class="navbar-brand font-weight-bold text-warning" th:href="@{/}">SiRetail</a>
         <button
                 class="navbar-toggler"
                 type="button"
@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li th:class="${activeTab == 'cabang'}? 'font-weight-bold' : null">
-                    <a class="nav-item nav-link active text-secondary" th:href="@{/bioskop/viewall}">
+                    <a class="nav-item nav-link active text-secondary" th:href="@{/cabang}">
                         Cabang<span class="sr-only">(current)</span>
                     </a>
                 </li>
