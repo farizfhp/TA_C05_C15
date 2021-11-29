@@ -26,6 +26,7 @@
                 <th>Status</th>
                 <th>Detail</th>
                 <th>Update</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -44,6 +45,9 @@
                     <a class="btn btn-sm btn-primary" th:href="@{/cabang/view(idCabang=${cabang.idCabang})}">Detail</a>
                 <td>
                     <a class="btn btn-sm btn-warning" th:href="@{/cabang/update/} + ${cabang.idCabang}">Update</a>
+                </td>
+                <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+                    <a class="btn btn-sm btn-danger" th:href="@{/cabang/delete/} + ${cabang.idCabang}">Delete</a>
                 </td>
             </tr>
             </tbody>
