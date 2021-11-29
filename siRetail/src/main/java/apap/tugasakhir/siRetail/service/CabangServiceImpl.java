@@ -35,4 +35,7 @@ public class CabangServiceImpl implements CabangService{
     public CabangModel getCabangByIdCabang(Long idCabang){
         return cabangDB.findByIdCabang(idCabang);
     }
+
+    @Override
+    public void deleteCabang(CabangModel cabang) { cabangDB.delete(cabang); }
 }

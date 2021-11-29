@@ -96,4 +96,23 @@ public class CabangController {
 
         return "home";
     }
+    @GetMapping("/cabang/delete/{idCabang}")
+    public String removeCabang(
+            @PathVariable(required = false) Long idCabang,
+            Model model,
+            final HttpServletRequest httpServletRequest
+    ) {
+        CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
+        model.addAttribute("cabang", cabang);
+
+        if (cabang.getListItemCabang().size() == 0 || cabang.getStatus() == 0){
+            cabangService.deleteCabang(cabang);
+            String message = "Cabang dengan nama " + cabang.getNama() + " berhasil dihapus.";
+            return returnMessage(model, httpServletRequest, message);
+        }
+        else {
+            return "delete-cabang-gagal";
+        }
+
+    }
 }
