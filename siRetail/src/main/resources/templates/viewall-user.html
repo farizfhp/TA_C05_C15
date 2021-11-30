@@ -14,14 +14,13 @@
 <div class="container">
     <h2>Daftar Seluruh User</h2>
     <br>
-
     <table class="table">
         <thead class="thead-light">
         <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Role</th>
-            <th scope="col"></th>
+            <th scope="col" style="width:25%">Username</th>
+            <th scope="col" style="width:25%">Nama</th>
+            <th scope="col" style="width:25%">Role</th>
+            <th scope="col" style="width:25%" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">Update</th>
         </tr>
         </thead>
         <tbody>

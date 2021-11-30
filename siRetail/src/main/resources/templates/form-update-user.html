@@ -20,12 +20,12 @@
                             <input type="hidden" th:field="*{username}" />
                             <input type="hidden" th:field="*{password}" />
                             <label>Nama</label>
-                            <input type="text" name="name" class="form-control" />
+                            <input type="text" name="name" th:value="*{name}" class="form-control" />
                             <br>
 
                             <label>Role</label>
                             <select name="role" class="form-control">
-                                <option selected value=""> -- Pilih Role -- </option>
+                                <option selected value="" disabled> -- Pilih Role -- </option>
                                 <option th:each="role : ${listRole}" th:value="${role.idRole}" th:text="${role.nama}"></option>
                             </select>
                             <br>
@@ -40,7 +40,7 @@
                             <input type="hidden" th:field="*{password}" />
                             <input type="hidden" th:field="*{role}" />
                             <label>Nama</label>
-                            <input type="text" name="name" class="form-control" />
+                            <input type="text" name="name" th:value="*{name}" class="form-control" />
 
                             <br>
                             <button type="submit" class="btn btn-warning">Simpan</button>

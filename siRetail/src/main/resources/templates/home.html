@@ -26,11 +26,12 @@
             <h2 style="text-align: center">Selamat datang di SiRetail</h2>
             <div class="d-flex justify-content-center">
                 <a th:href="@{/cabang}"class="mx-2 btn btn-warning">Lihat semua cabang</a>
-                <a th:href="@{/cabang/add}"class="mx-2 btn btn-outline-warning">Tambah cabang</a>
+                <a th:href="@{/cabang/add}"class="mx-2 btn btn-outline-warning" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">Tambah cabang</a>
             </div>
             <div class=" my-3 d-flex justify-content-center">
                 <a th:href="@{/user/viewall}"class="mx-2 btn btn-warning">Lihat semua user</a>
-                <span th:if="${role} == 'Kepala Retail'">
+<!--                <span th:if="${role} == 'Kepala Retail'">-->
+                <span  sec:authorize="hasAuthority('Kepala Retail')">
                     <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
                 </span>
             </div>
