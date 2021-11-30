@@ -19,10 +19,11 @@
                 <p th:text="'Nama Cabang : ' + ${cabang.nama}"></p>
                 <p th:text="'Alamat Cabang : ' + ${cabang.alamat}"></p>
                 <p th:text="'Ukuran Cabang (m2) : ' + ${cabang.ukuran}"></p>
-                <p th:text="'Status Cabang : ' + ${cabang.status}"></p>
-                <p th:if="${cabang.status} == 0">Menunggu Persetujuan</p>
-                <p th:if="${cabang.status} == 1">Ditolak</p>
-                <p th:if="${cabang.status} == 2">Disetujui</p>
+                <p>
+                    <span th:if="${cabang.status} == 0" th:text="'Status Cabang : Menunggu Persetujuan'"></span>
+                    <span th:if="${cabang.status} == 1" th:text="'Status Cabang : Ditolak'"></span>
+                    <span th:if="${cabang.status} == 2" th:text="'Status Cabang : Disetujui'"></span>
+                </p>
                 <p th:text="'No Telepon Cabang : ' + ${cabang.noTelp}"></p>
                 <div th:if="*{listItemCabang!=null}">
                     <div th:if="*{listItemCabang.size() !=0}">
