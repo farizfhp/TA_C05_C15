@@ -28,5 +28,10 @@ public class CabangRestServiceImpl implements CabangRestService{
         return listAlamatCabang;
     }
 
-}
 
+
+    public CabangModel createCabang(CabangModel cabang) {
+        cabang.setStatus(0);
+        return cabangDB.save(cabang);
+    }
+}
