@@ -14,7 +14,7 @@
     <div th:if="*{listCabang.size() !=0}">
         <h2>Daftar Seluruh Cabang</h2>
         <br>
-        <table class="table">
+        <table class="table" style="text-align: center">
             <thead>
             <tr>
                 <th>No</th>
@@ -25,23 +25,34 @@
                 <th>Jumlah Item</th>
                 <th>Status</th>
                 <th>Detail</th>
+<<<<<<< HEAD
                 <th>Update</th>
+                <th>Delete</th>
+=======
+                <th sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">Update</th>
+                <th sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">Delete</th>
+>>>>>>> c5e8f6c88b5e59694b0280b3ae3ee820ab85b26b
             </tr>
             </thead>
             <tbody>
             <tr th:each="cabang, iterationStatus : ${listCabang}"
-                th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+                th:class="${iterationStatus.even} ? 'bg-light'">
                 <td th:text="${iterationStatus.count}"></td>
                 <td th:text="${cabang.idCabang}"></td>
                 <td th:text="${cabang.nama}"></td>
                 <td th:text="${cabang.noTelp}"></td>
                 <td th:text="${cabang.ukuran}"></td>
                 <td th:text="${cabang.listItemCabang.size()}"></td>
-                <td th:text="${cabang.status}"></td>
+                <td th:if="${cabang.status} == 0">Menunggu Persetujuan</td>
+                <td th:if="${cabang.status} == 1">Ditolak</td>
+                <td th:if="${cabang.status} == 2">Disetujui</td>
                 <td>
                     <a class="btn btn-sm btn-primary" th:href="@{/cabang/view(idCabang=${cabang.idCabang})}">Detail</a>
-                <td>
-                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/update/} + ${cabang.idCabang}">Update</a>
+                <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+                    <a class="btn btn-sm btn-warning" th:href="@{/cabang/update/} + ${cabang.idCabang}">Update</a>
+                </td>
+                <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+                    <a class="btn btn-sm btn-danger" th:href="@{/cabang/delete/} + ${cabang.idCabang}">Delete</a>
                 </td>
             </tr>
             </tbody>
@@ -50,7 +61,9 @@
     <div th:unless="*{listCabang.size() != 0}">
         <h2 th:text="'Tidak ada cabang'"></h2>
     </div>
-
+    <span sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+    <a class="btn btn-primary" th:href="@{/user/add/}">Tambah Cabang</a>
+    </span>
     <a class="btn btn-primary" href="/">Home</a>
 </div>
 
