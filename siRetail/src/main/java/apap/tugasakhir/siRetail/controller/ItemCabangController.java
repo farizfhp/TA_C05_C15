@@ -69,6 +69,9 @@ public class ItemCabangController {
         }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
         model.addAttribute("role",role);
+        model.addAttribute("message", message);
+        return "home";
+    }
 
     @GetMapping("/add-stok/{uuidItem}")
     public String viewAllCabang(
