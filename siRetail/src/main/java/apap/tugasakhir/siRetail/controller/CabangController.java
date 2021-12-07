@@ -31,7 +31,7 @@ public class CabangController {
     }
 
     @GetMapping("/cabang/view")
-    public String viewDetailBioskop(
+    public String viewDetailCabang(
             @RequestParam(value = "idCabang", required = false) Long idCabang, final HttpServletRequest httpreq,
             Model model
     ) {

@@ -54,5 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .passwordEncoder(encoder)
                 .withUser("nontonFilm").password(encoder.encode("21cineplux"))
                 .roles("USER");
+//                .roles("Kepala Retail");
     }
 }

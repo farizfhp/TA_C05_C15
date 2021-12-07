@@ -18,8 +18,9 @@
                         <input type="hidden" value="2" name="status" />
 
                         <label>Nama user</label>
-                        <input type="hidden" th:field="*{user}"/>
-                        <input type="text" readonly class="form-control" th:value="*{user.getName()}"/>
+<!--                        <input type="hidden" th:field="*{user}"/>-->
+                        <input type="hidden" th:field="*{user}" />
+                        <input type="text" readonly class="form-control" th:value="*{user?.getName()}"/>
                         <br>
 
                         <label>Nama cabang</label>
