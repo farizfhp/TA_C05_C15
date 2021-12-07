@@ -5,17 +5,17 @@ import apap.tugasakhir.siRetail.service.CabangRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
-public class CabangRestController {
+@RequestMapping("/api/v1")
+public class CabangResttController {
     @Autowired
     CabangRestService cabangRestService;
 
@@ -28,5 +28,15 @@ public class CabangRestController {
         } else {
             return cabangRestService.createCabang(cabang);
         }
+    }
+
+    @GetMapping(value="/list-alamat-cabang")
+    private ArrayList<HashMap<String,String>> retrieveListAlamatCabang(){
+        return cabangRestService.retrieveListAlamatCabang();
+    }
+
+    @GetMapping(value = "/list-cabang")
+    private List<CabangModel> retrieveListCabang() {
+        return cabangRestService.retrieveListCabang();
     }
 }
