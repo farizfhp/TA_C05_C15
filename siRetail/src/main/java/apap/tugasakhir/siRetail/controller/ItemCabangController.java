@@ -6,6 +6,7 @@ import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangRestService;
+import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -68,6 +69,9 @@ public class ItemCabangController {
         }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
         model.addAttribute("role",role);
+        model.addAttribute("message", message);
+        return "home";
+    }
 
     @GetMapping("/add-stok/{uuidItem}")
     public String viewAllCabang(
