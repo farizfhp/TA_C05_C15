@@ -2,10 +2,9 @@ package apap.tugasakhir.siRetail.controller;
 
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
-import apap.tugasakhir.siRetail.service.CabangService;
-import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
+import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangRestService;
 import apap.tugasakhir.siRetail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class ItemCabangController {
     @Qualifier("cabangServiceImpl")
     @Autowired
     private CabangService cabangService;
-
+  
     @Qualifier("itemCabangRestServiceImpl")
     @Autowired
     private ItemCabangRestService itemCabangRestService;
@@ -63,14 +63,11 @@ public class ItemCabangController {
     private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
         model.addAttribute("message", message);
 
-        if (userService.getUserByUsername(httpServletRequest.getRemoteUser()) == null) {
+        if(userService.getUserByUsername(httpServletRequest.getRemoteUser())==null){
             return "home";
         }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
-        model.addAttribute("role", role);
-
-        return "home";
-    }
+        model.addAttribute("role",role);
 
     @GetMapping("/add-stok/{uuidItem}")
     public String viewAllCabang(
