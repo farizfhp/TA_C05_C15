@@ -18,20 +18,22 @@ public class CabangRestServiceImpl implements CabangRestService{
     private CabangDB cabangDB;
 
     @Override
-    public HashMap<String, String> retrieveListAlamatCabang(){
+    public ArrayList<HashMap<String, String>> retrieveListAlamatCabang(){
+        ArrayList<HashMap<String,String>> result = new ArrayList<>();
         List<CabangModel> listCabang = cabangDB.findAll();
-        HashMap<String,String> mapAlamatCabang = new HashMap<>();
 
         for (CabangModel cabang : listCabang){
+            HashMap<String,String> mapAlamatCabang = new HashMap<>();
             String idCabang = String.valueOf(cabang.getIdCabang());
             String alamat = cabang.getAlamat();
-            mapAlamatCabang.put(idCabang,alamat);
+            mapAlamatCabang.put("id",idCabang);
+            mapAlamatCabang.put("alamat",alamat);
+            result.add(mapAlamatCabang);
         }
-        return mapAlamatCabang;
+        return result;
     }
 
-
-
+    @Override
     public CabangModel createCabang(CabangModel cabang) {
         cabang.setStatus(0);
         return cabangDB.save(cabang);

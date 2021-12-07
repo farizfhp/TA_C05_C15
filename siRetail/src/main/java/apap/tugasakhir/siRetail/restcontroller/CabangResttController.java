@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,10 +31,10 @@ public class CabangResttController {
     }
 
     @GetMapping(value="/list-alamat-cabang")
-    private HashMap<String, String> retrieveListAlamatCabang(){
+    private ArrayList<HashMap<String,String>> retrieveListAlamatCabang(){
         return cabangRestService.retrieveListAlamatCabang();
     }
-}
+
     @GetMapping(value = "/list-cabang")
     private List<CabangModel> retrieveListCabang() {
         return cabangRestService.retrieveListCabang();
