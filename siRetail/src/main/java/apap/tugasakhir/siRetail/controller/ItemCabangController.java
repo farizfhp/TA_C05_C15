@@ -6,6 +6,7 @@ import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangRestService;
+import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,14 @@ import java.util.*;
 
 @Controller
 public class ItemCabangController {
+    @Qualifier("itemCabangServiceImpl")
+    @Autowired
+    private ItemCabangService itemCabangService;
+
+    @Qualifier("cabangServiceImpl")
+    @Autowired
+    private CabangService cabangService;
+  
     @Qualifier("itemCabangRestServiceImpl")
     @Autowired
     private ItemCabangRestService itemCabangRestService;
@@ -25,6 +34,41 @@ public class ItemCabangController {
     @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
+
+    @GetMapping("/itemCabang/add/{idCabang}")
+    public String addItemCabangForm(
+            @PathVariable Long idCabang,
+            Model model)
+    {
+        ItemCabangModel item = new ItemCabangModel();
+        CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
+        item.setCabang(cabang);
+        model.addAttribute("itemcabang", item);
+        return "form-add-itemcabang";
+    }
+
+    @PostMapping("/itemCabang/add")
+    public String addItemCabangSubmit(
+            @ModelAttribute ItemCabangModel item,
+            Model model,
+            final HttpServletRequest httpServletRequest)
+    {
+        itemCabangService.addItemCabang(item);
+//        model.addAttribute("idCabang", item.getCabang().getIdCabang());
+//        model.addAttribute("nama", item.getNama());
+        String message = "Item dengan nama " + item.getNama() + " berhasil ditambahkan.";
+
+        return returnMessage(model, httpServletRequest, message);
+    }
+
+    private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
+        model.addAttribute("message", message);
+
+        if(userService.getUserByUsername(httpServletRequest.getRemoteUser())==null){
+            return "home";
+        }
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        model.addAttribute("role",role);
 
     @GetMapping("/add-stok/{uuidItem}")
     public String viewAllCabang(
