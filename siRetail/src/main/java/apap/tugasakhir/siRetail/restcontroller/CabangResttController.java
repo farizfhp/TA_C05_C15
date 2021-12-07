@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -27,6 +29,12 @@ public class CabangResttController {
             return cabangRestService.createCabang(cabang);
         }
     }
+
+    @GetMapping(value="/list-alamat-cabang")
+    private ArrayList<HashMap<String,String>> retrieveListAlamatCabang(){
+        return cabangRestService.retrieveListAlamatCabang();
+    }
+
     @GetMapping(value = "/list-cabang")
     private List<CabangModel> retrieveListCabang() {
         return cabangRestService.retrieveListCabang();
