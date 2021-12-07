@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>SiRetail</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
+<div class="container">
+
+    <div th:if="*{listCabang.size() !=0}">
+        <h2>Daftar Kupon</h2>
+        <br>
+        <table class="table" style="text-align: center">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Coupon ID</th>
+                <th>Coupon Code</th>
+                <th>Coupon Name</th>
+                <th>Discount Amount</th>
+                <th>Expiry Date</th>
+                <th th:if="${promoApplied}" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+<!--                    <span th:if="${promoApplied}" ></span>-->
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="kupon, iterationStatus : ${listKupon}"
+                th:class="${iterationStatus.even} ? 'bg-light'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${kupon.idCoupon}"></td>
+                <td th:text="${kupon.couponCode}"></td>
+                <td th:text="${kupon.couponName}"></td>
+                <td th:text="${kupon.discountAmmount}"></td>
+                <td th:text="${kupon.expiryDate}"></td>
+                <td th:if="${promoApplied}" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/view(idCabang=${cabang.idCabang})}">Terapkan Kode Promo</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="*{listKupon.size() != 0}">
+        <h2 th:text="'Tidak ada kupon yang dapat diterapkan'"></h2>
+    </div>
+    <a class="btn btn-primary" href="/">Home</a>
+</div>
+
+</body>
+
+</html>
