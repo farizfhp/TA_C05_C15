@@ -36,4 +36,8 @@ public class CabangRestServiceImpl implements CabangRestService{
         cabang.setStatus(0);
         return cabangDB.save(cabang);
     }
+    @Override
+    public List<CabangModel> retrieveListCabang() {
+        return cabangDB.findAll();
+    }
 }

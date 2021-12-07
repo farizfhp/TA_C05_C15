@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class CabangResttController {
     @Autowired
     CabangRestService cabangRestService;
@@ -29,7 +29,12 @@ public class CabangResttController {
     }
 
     @GetMapping(value="/list-alamat-cabang")
-    private HashMap<String, String> retrieveListCabang(){
+    private HashMap<String, String> retrieveListAlamatCabang(){
         return cabangRestService.retrieveListAlamatCabang();
+    }
+}
+    @GetMapping(value = "/list-cabang")
+    private List<CabangModel> retrieveListCabang() {
+        return cabangRestService.retrieveListCabang();
     }
 }
