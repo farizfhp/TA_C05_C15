@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/js/**").permitAll()
 //                .antMatchers("/cabang/delete/**").hasAuthority("KEPALA RETAIL")
 //                .antMatchers("/cabang/delete/**").hasAuthority("MANAGER CABANG")
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
