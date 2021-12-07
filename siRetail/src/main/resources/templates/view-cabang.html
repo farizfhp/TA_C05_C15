@@ -118,7 +118,7 @@
             </div>
             <br>
             <a class="btn btn-primary" th:href="@{/cabang}">Kembali</a>
-            <a th:if="${role} == 'MANAGER'" class="btn btn-primary" th:href="@{/itemCabang/add/} + ${cabang.idCabang}">Tambah ItemCabang</a>
+            <a sec:authorize="hasAuthority('Kepala Retail')" class="btn btn-primary" th:href="@{/itemCabang/add/} + ${cabang.idCabang}">Tambah ItemCabang</a>
             <a sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" class="btn btn-danger" th:href="@{'/cabang/delete/' + ${cabang.idCabang}}">Delete</a>
         </div>
     </div>
