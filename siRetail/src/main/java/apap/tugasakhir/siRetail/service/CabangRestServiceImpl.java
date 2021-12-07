@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -17,15 +18,16 @@ public class CabangRestServiceImpl implements CabangRestService{
     private CabangDB cabangDB;
 
     @Override
-    public List<String> retrieveListAlamatCabang(){
+    public HashMap<String, String> retrieveListAlamatCabang(){
         List<CabangModel> listCabang = cabangDB.findAll();
-        List<String> listAlamatCabang = new ArrayList<>();
+        HashMap<String,String> mapAlamatCabang = new HashMap<>();
 
         for (CabangModel cabang : listCabang){
+            String idCabang = String.valueOf(cabang.getIdCabang());
             String alamat = cabang.getAlamat();
-            listAlamatCabang.add(alamat);
+            mapAlamatCabang.put(idCabang,alamat);
         }
-        return listAlamatCabang;
+        return mapAlamatCabang;
     }
 
 

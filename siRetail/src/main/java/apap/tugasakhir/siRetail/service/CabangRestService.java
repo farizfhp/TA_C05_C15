@@ -1,9 +1,9 @@
 package apap.tugasakhir.siRetail.service;
 import apap.tugasakhir.siRetail.model.CabangModel;
 
-import java.util.List;
+import java.util.HashMap;
 
 public interface CabangRestService {
-    List<String> retrieveListAlamatCabang();
+    HashMap<String,String> retrieveListAlamatCabang();
     CabangModel createCabang(CabangModel cabang);
 }
