@@ -6,6 +6,7 @@ import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
+import apap.tugasakhir.siRetail.rest.Setting;
 import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -84,6 +85,7 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
         List<ItemDetail> itemCabangList = new ArrayList<>();
 
         ResponseReader response = this.webClientItem.get().uri("/api/item")
+//        ResponseReader response = this.webClientItem.get().uri(fitur12Url)
                 .retrieve()
                 .bodyToMono(ResponseReader.class).block();
 
