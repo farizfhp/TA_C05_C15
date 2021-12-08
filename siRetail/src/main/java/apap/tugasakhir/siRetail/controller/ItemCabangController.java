@@ -64,11 +64,12 @@ public class ItemCabangController {
     private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
         model.addAttribute("message", message);
 
-        if (userService.getUserByUsername(httpServletRequest.getRemoteUser()) == null) {
+        if(userService.getUserByUsername(httpServletRequest.getRemoteUser())==null){
             return "home";
         }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
-        model.addAttribute("role", role);
+        model.addAttribute("role",role);
+        model.addAttribute("message", message);
         return "home";
     }
 
