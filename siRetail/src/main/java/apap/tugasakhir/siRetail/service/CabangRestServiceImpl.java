@@ -50,21 +50,21 @@ public class CabangRestServiceImpl implements CabangRestService{
         return result;
     }
 
-    @Override
-    public ArrayList<HashMap<String, String>> retrieveListAlamatCabang(){
-        ArrayList<HashMap<String,String>> result = new ArrayList<>();
-        List<CabangModel> listCabang = cabangDB.findAll();
+    // @Override
+    // public ArrayList<HashMap<String, String>> retrieveListAlamatCabang(){
+    //     ArrayList<HashMap<String,String>> result = new ArrayList<>();
+    //     List<CabangModel> listCabang = cabangDB.findAll();
 
-        for (CabangModel cabang : listCabang){
-            HashMap<String,String> mapAlamatCabang = new HashMap<>();
-            String idCabang = String.valueOf(cabang.getIdCabang());
-            String alamat = cabang.getAlamat();
-            mapAlamatCabang.put("id",idCabang);
-            mapAlamatCabang.put("alamat",alamat);
-            result.add(mapAlamatCabang);
-        }
-        return result;
-    }
+    //     for (CabangModel cabang : listCabang){
+    //         HashMap<String,String> mapAlamatCabang = new HashMap<>();
+    //         String idCabang = String.valueOf(cabang.getIdCabang());
+    //         String alamat = cabang.getAlamat();
+    //         mapAlamatCabang.put("id",idCabang);
+    //         mapAlamatCabang.put("alamat",alamat);
+    //         result.add(mapAlamatCabang);
+    //     }
+    //     return result;
+    // }
 
     @Override
     public CabangModel createCabang(CabangModel cabang) {
@@ -80,10 +80,11 @@ public class CabangRestServiceImpl implements CabangRestService{
     @Override
     public Mono<KuponDetail> listCoupon(Long idItemCabang){
 
-        ItemCabangModel item = itemCabangDB.findByIdItemCabang(idItemCabang);
-        return this.webClient.get().uri("?idItemCabang=" + item.getIdItemCabang())
-                .retrieve()
-                .bodyToMono(KuponDetail.class);
+        // ItemCabangModel item = itemCabangDB.findByIdItemCabang(idItemCabang);
+        // return this.webClient.get().uri("?idItemCabang=" + item.getIdItemCabang())
+        //         .retrieve()
+        //         .bodyToMono(KuponDetail.class);
+        return null;
 
     }
 }
