@@ -48,27 +48,33 @@ public class ItemCabangController {
         // cabang.getListItemCabang().add(item);
         // List<ItemDetail> listItemAll = itemCabangRestService.getAllItem();
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
-        List<ItemDetail> listItemNew = new ArrayList<>();
 
-        listItemNew.add(new ItemDetail());
-
-        item.setCabang(cabang);
+//        List<ItemDetail> listItemNew = new ArrayList<>();
+//        listItemNew.add(new ItemDetail(item.getUuidItem(), item.getNama(), item.getHarga(), item.getStok(), item.getKategori()));
+//        item.setCabang(cabang);
         System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
 
         model.addAttribute("cabang", cabang);
         // model.addAttribute("itemcabang", item);
         model.addAttribute("listItem", listItem);
-        model.addAttribute("listItemNew", listItemNew);
+//        model.addAttribute("listItemNew", listItemNew);
         return "form-add-itemcabang";
     }
 
     @PostMapping(value = "/itemCabang/add", params = { "save" })
-    public String addItemCabangSubmit(
+    public String addItemCabangSubmit(String uuid, Integer id, Model model,
             @ModelAttribute ItemCabangModel item,
-            Model model,
             final HttpServletRequest httpServletRequest) {
-        item.getCabang().setListItemCabang(listItemNew);
+
+//        for ( ItemCabangModel itemCabang : itemCabangService.getListItem() ){
+//            if (itemCabang.getIdItemCabang().equals())
+//        }
+//        item.getCabang().setListItemCabang(listItemNew);
+
+        ItemCabangModel itemEx = itemCabangRestService.getItemCabangByUuid(uuid);
+        item.getCabang().getListItemCabang().add(itemEx);
         itemCabangService.addItemCabang(item);
+        model.addAttribute("itemEx", item.getNama());
         String message = "Item dengan nama " + item.getNama() + " berhasil ditambahkan.";
 
         return returnMessage(model, httpServletRequest, message);
@@ -106,4 +112,5 @@ public class ItemCabangController {
         model.addAttribute("message", message);
         return "home";
     }
+
 }

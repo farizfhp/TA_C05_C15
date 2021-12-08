@@ -1,8 +1,10 @@
 package apap.tugasakhir.siRetail.controller;
 
 import apap.tugasakhir.siRetail.model.CabangModel;
+import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.service.CabangService;
+import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans. factory.annotation.Qualifier;
@@ -23,6 +25,10 @@ public class CabangController {
     @Autowired
     private UserService userService;
 
+    @Qualifier("itemCabangServiceImpl")
+    @Autowired
+    private ItemCabangService itemCabangService;
+
     @GetMapping("/cabang")
     public String viewAllCabang(Model model) {
         List<CabangModel> listCabang = cabangService.getListCabang();
@@ -37,6 +43,9 @@ public class CabangController {
     ) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
         model.addAttribute("cabang", cabang);
+
+        //nambahin buat list all item di tiap cabang
+        model.addAttribute("listItemCabang", cabang.getListItemCabang());
         return "view-cabang";
     }
 
@@ -114,5 +123,24 @@ public class CabangController {
             return "delete-cabang-gagal";
         }
 
+    }
+
+    @PostMapping(value = "/cabang/add", params = {"addRow"})
+    private String addRowItemMultiple(@ModelAttribute CabangModel cabang, Model model) {
+        if (cabang.getListItemCabang() == null || cabang.getListItemCabang().size() == 0){
+            cabang.setListItemCabang(new ArrayList<>());
+        }
+//        bioskop.getListFilm().add(new FilmModel());
+//        List<FilmModel> listFilm = filmService.getListFilm();
+//
+//        model.addAttribute("bioskop", bioskop);
+//        model.addAttribute("listFilmExisting", listFilm);
+
+        cabang.getListItemCabang().add(new ItemCabangModel());
+        List<ItemCabangModel> listItemCabang = itemCabangService.getListItem();
+
+        model.addAttribute("cabang", cabang);
+        model.addAttribute("listItemCabangExist", listItemCabang);
+        return "form-add-itemcabang";
     }
 }
