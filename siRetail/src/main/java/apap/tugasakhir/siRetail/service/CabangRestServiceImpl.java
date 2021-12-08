@@ -15,9 +15,7 @@ import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -51,22 +49,6 @@ public class CabangRestServiceImpl implements CabangRestService{
     }
 
     @Override
-    public ArrayList<HashMap<String, String>> retrieveListAlamatCabang(){
-        ArrayList<HashMap<String,String>> result = new ArrayList<>();
-        List<CabangModel> listCabang = cabangDB.findAll();
-
-        for (CabangModel cabang : listCabang){
-            HashMap<String,String> mapAlamatCabang = new HashMap<>();
-            String idCabang = String.valueOf(cabang.getIdCabang());
-            String alamat = cabang.getAlamat();
-            mapAlamatCabang.put("id",idCabang);
-            mapAlamatCabang.put("alamat",alamat);
-            result.add(mapAlamatCabang);
-        }
-        return result;
-    }
-
-    @Override
     public CabangModel createCabang(CabangModel cabang) {
         cabang.setStatus(0);
         return cabangDB.save(cabang);
@@ -80,10 +62,14 @@ public class CabangRestServiceImpl implements CabangRestService{
     @Override
     public Mono<KuponDetail> listCoupon(Long idItemCabang){
 
-        ItemCabangModel item = itemCabangDB.findByIdItemCabang(idItemCabang);
-        return this.webClient.get().uri("?idItemCabang=" + item.getIdItemCabang())
-                .retrieve()
-                .bodyToMono(KuponDetail.class);
+        Optional<ItemCabangModel> item = itemCabangDB.findByIdItemCabang(idItemCabang);
+        if (item.isPresent()) {
+            return this.webClient.get().uri("?idItemCabang=" + idItemCabang)
+                    .retrieve()
+                    .bodyToMono(KuponDetail.class);
+        } else {
+            throw new NoSuchElementException();
+        }
 
     }
 }
