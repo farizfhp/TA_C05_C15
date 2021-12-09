@@ -101,4 +101,13 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
         return itemCabangList;
 
     }
+
+    @Override
+    public void applyCoupon(Long idItemCabang, Integer idCoupon, Float discountAmount){
+        ItemCabangModel item = getItemCabangById(idItemCabang);
+        item.setIdPromo(idCoupon);
+        Integer harga = (int)((1-discountAmount) * item.getHarga());
+        item.setHarga(harga);
+        itemCabangDB.save(item);
+    }
 }
