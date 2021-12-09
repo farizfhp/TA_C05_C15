@@ -70,10 +70,11 @@ public class CabangRestServiceImpl implements CabangRestService{
     @Override
     public Mono<KuponDetail> listCoupon(Long idItemCabang){
 
-        ItemCabangModel item = itemCabangDB.findByIdItemCabang(idItemCabang);
-        return this.webClient.get().uri("?idItemCabang=" + item.getIdItemCabang())
-                .retrieve()
-                .bodyToMono(KuponDetail.class);
+        // ItemCabangModel item = itemCabangDB.findByIdItemCabang(idItemCabang);
+        // return this.webClient.get().uri("?idItemCabang=" + item.getIdItemCabang())
+        //         .retrieve()
+        //         .bodyToMono(KuponDetail.class);
+        return null;
 
     }
 }
