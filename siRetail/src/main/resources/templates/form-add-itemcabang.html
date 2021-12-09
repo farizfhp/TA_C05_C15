@@ -28,26 +28,24 @@
                             <thead>
                                 <th>Item</th>
                                 <th>
-                                    <button class="btn btn-primary" type="submit" name="addRow">Tambah Row</button>
+                                    <button class="btn btn-primary" type="submit" name="addRow">Tambah Item</button>
                                 </th>
                             </thead>
                             <tbody>
-<!--                                <tr th:each="item, iterationStatus : *{listItem}">-->
-                                <tr>
+                                <tr th:each="item, iterationStatus : ${listItem}">
                                     <td>
-<!--                                        <select name="noItem"-->
-<!--                                            th:field="*{listItem[__${iterationStatus.index}__].uuidItem}"-->
-<!--                                            class="form-control">-->
-<!--                                            <div th:each="itemEx, iterationStatus2 : ${listItemNew}">-->
-<!--                                                <option th:value="${itemEx.uuid}" th:text="${itemEx.nama}">-->
-<!--                                                </option>-->
-<!--                                            </div>-->
-<!--                                        </select>-->
-                                        <select name="itemEx" class="form-control">
-                                            <option selected value=""> -- Pilih Item -- </option>
-                                            <option th:each="item : ${listItem}" th:value="${item.uuid}" th:text="${item.nama}"></option>
+                                        <select name="idItemCabang"
+                                            th:field="*{listItem[__${iterationStatus.index}__].idItemCabang}"
+                                            class="form-control">
+                                            <div th:each="itemEx, iterationStatus2 : ${listItemNew}">
+                                                <option selected value=""> -- Pilih Item -- </option>
+                                                <option th:value="${itemEx.idItemCabang}" th:text="${itemEx.nama}"></option>
+                                            </div>
                                         </select>
-
+<!--                                        <select name="itemEx" class="form-control">-->
+<!--                                            <option selected value=""> &#45;&#45; Pilih Item &#45;&#45; </option>-->
+<!--                                            <option th:each="item : ${listItem}" th:value="${item.uuid}" th:text="${item.nama}"></option>-->
+<!--                                        </select>-->
                                         <label>Jumlah Stok Item</label>
                                         <input required type="number" name="stok" class="form-control" />
                                         <br>
@@ -56,7 +54,7 @@
                                         <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"
                                             name="deleteRow">Hapus</button>
                                     </td>
-                                    <button type="submit" name="save" class="btn btn-warning">Simpan</button>
+<!--                                    <button type="submit" name="save" class="btn btn-warning">Simpan</button>-->
                                 </tr>
                             </tbody>
                         </table>

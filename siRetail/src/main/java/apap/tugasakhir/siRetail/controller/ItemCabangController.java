@@ -43,21 +43,32 @@ public class ItemCabangController {
             @PathVariable Long idCabang,
             Model model) {
 
-        ItemCabangModel item = new ItemCabangModel();
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
-        // cabang.getListItemCabang().add(item);
-        // List<ItemDetail> listItemAll = itemCabangRestService.getAllItem();
-        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
 
-//        List<ItemDetail> listItemNew = new ArrayList<>();
+        List<ItemDetail> listItemDetail = itemCabangRestService.getAllItem();
+        System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
+        List<ItemCabangModel> listItem = new ArrayList<ItemCabangModel>();
+
+        for (ItemDetail itemDetail : listItemDetail) {
+            ItemCabangModel item = new ItemCabangModel();
+            item.setCabang(cabang);
+            item.setNama(itemDetail.getNama());
+            item.setStok(itemDetail.getStok());
+            item.setUuidItem(itemDetail.getUuid());
+            item.setHarga(itemDetail.getHarga());
+            item.setKategori(itemDetail.getKategori());
+            listItem.add(item);
+        }
+
+        System.out.println(Arrays.deepToString(listItem.toArray()));
+        List<ItemCabangModel> listItemNew = new ArrayList<>();
 //        listItemNew.add(new ItemDetail(item.getUuidItem(), item.getNama(), item.getHarga(), item.getStok(), item.getKategori()));
 //        item.setCabang(cabang);
-        System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
 
         model.addAttribute("cabang", cabang);
-        // model.addAttribute("itemcabang", item);
         model.addAttribute("listItem", listItem);
-//        model.addAttribute("listItemNew", listItemNew);
+        model.addAttribute("listItemNew", listItemNew);
+        // model.addAttribute("itemcabang", item);
         return "form-add-itemcabang";
     }
 

@@ -85,7 +85,6 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
         List<ItemDetail> itemCabangList = new ArrayList<>();
 
         ResponseReader response = this.webClientItem.get().uri("/api/item")
-//        ResponseReader response = this.webClientItem.get().uri(fitur12Url)
                 .retrieve()
                 .bodyToMono(ResponseReader.class).block();
 
