@@ -11,6 +11,14 @@
 <nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
 <div class="container">
     <div class="card m-4 p-4">
+        <div th:unless="${message} == null" class="card border border-dark rounded mb-5">
+            <div class="card-header h3">
+                Info
+            </div>
+            <div class="card-body">
+                <h4 th:text="${message}"></h4>
+            </div>
+        </div>
         <div class="card-body">
             <div class="justify-content-center">
                 <h2>Detail Cabang</h2>
@@ -79,7 +87,7 @@
                                     <th>Harga</th>
                                     <th>Stok</th>
                                     <th>Kategori</th>
-                                    <th>Harga</th>
+                                    <th>Request Tambah Stok</th>
                                     <th>Promo</th>
                                     <th>Hapus</th>
                                 </tr>
@@ -93,16 +101,19 @@
                                     <td th:text="${itemCabang.harga}"></td>
                                     <td th:text="${itemCabang.stok}"></td>
                                     <td th:text="${itemCabang.kategori}"></td>
+                                    <td>
+                                        <a class="btn btn-sm btn-warning" th:href="@{/itemCabang/tambahStok/} + ${itemCabang.idItemCabang}">Request</a>
+                                    </td>
                                     <td th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
                                     <td th:unless="${itemCabang.idPromo != null}">
                                         <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}">Terapkan Promo</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-danger" th:href="@{/itemCabang/delete/} + ${itemCabang.noItemCabang}">Hapus Item</a>
+                                        <a class="btn btn-sm btn-danger" th:href="@{/itemCabang/delete/} + ${itemCabang.idItemCabang}">Hapus Item</a>
                                     </td>
                                     <td>
                                         <input class="form-check-input" type="checkbox"
-                                               th:field="*{listItemCabang}" th:value="${itemCabang.noItemCabang}"
+                                               th:field="*{listItemCabang}" th:value="${itemCabang.idItemCabang}"
                                                id="flexCheckDefault">
                                     </td>
                                 </tr>
