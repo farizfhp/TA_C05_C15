@@ -1,17 +1,17 @@
 package apap.tugasakhir.siRetail.service;
 
 import apap.tugasakhir.siRetail.model.CabangModel;
-import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.repository.CabangDB;
 import apap.tugasakhir.siRetail.repository.ItemCabangDB;
+import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
+import apap.tugasakhir.siRetail.rest.ResponseReader;
 import apap.tugasakhir.siRetail.rest.Setting;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -61,19 +61,33 @@ public class CabangRestServiceImpl implements CabangRestService{
         return cabangDB.findAll();
     }
 
+//    @Override
+//    public List<KuponDetail> listCoupon(){
+//        Mono<List<KuponDetail>> response = webClient.get().uri("rest/coupon/neededresponse")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(new ParameterizedTypeReference<List<KuponDetail>>() {});
+//        List<KuponDetail> listCoupon = response.block();
+//
+//        return new ArrayList<>(listCoupon);
+//    }
+
     @Override
     public List<KuponDetail> listCoupon(){
-
-        Mono<List<KuponDetail>> response = webClient.get().uri("rest/coupon/neededresponse")
-                .accept(MediaType.APPLICATION_JSON)
+        List<KuponDetail> result = new ArrayList<>();
+        ResponseReader response = this.webClient.get().uri("rest/coupon/neededresponse")
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<KuponDetail>>() {});
-        List<KuponDetail> listCoupon = response.block();
+                .bodyToMono(ResponseReader.class).block();
 
-        return new ArrayList<>(listCoupon);
-
-//        return this.webClient.get().uri("/rest/coupon/neededresponse")
-//                .retrieve()
-//                .bodyToMono(KuponDetail.class);
+        for (JsonNode kupon: response.getResult()){
+            String idCoupon = kupon.get("id-coupon").textValue();
+            String couponCode = kupon.get("coupon-code").textValue();
+            String couponName = kupon.get("coupon-name").textValue();
+            String discountAmount = kupon.get("discount-amount").textValue();
+            String expiryDate = kupon.get("expiry-date").textValue();
+            result.add(new KuponDetail(idCoupon,couponCode,couponName,discountAmount,expiryDate));
+        }
+        return result;
     }
+
 }
