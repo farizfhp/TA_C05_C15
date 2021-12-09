@@ -80,10 +80,10 @@ public class CabangRestServiceImpl implements CabangRestService{
                 .bodyToMono(ResponseReader.class).block();
 
         for (JsonNode kupon: response.getResult()){
-            String idCoupon = kupon.get("id-coupon").textValue();
+            Integer idCoupon = kupon.get("id-coupon").intValue();
             String couponCode = kupon.get("coupon-code").textValue();
             String couponName = kupon.get("coupon-name").textValue();
-            String discountAmount = kupon.get("discount-amount").textValue();
+            Float discountAmount = kupon.get("discount-amount").floatValue();
             String expiryDate = kupon.get("expiry-date").textValue();
             result.add(new KuponDetail(idCoupon,couponCode,couponName,discountAmount,expiryDate));
         }
