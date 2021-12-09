@@ -11,14 +11,13 @@
 <nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
 <div class="container">
 
-    <div th:if="*{listCabang.size() !=0}">
+    <div th:if="*{listKupon.size() !=0}">
         <h2>Daftar Kupon</h2>
         <br>
         <table class="table" style="text-align: center">
             <thead>
             <tr>
                 <th>No</th>
-                <th>Coupon ID</th>
                 <th>Coupon Code</th>
                 <th>Coupon Name</th>
                 <th>Discount Amount</th>
@@ -32,13 +31,12 @@
             <tr th:each="kupon, iterationStatus : ${listKupon}"
                 th:class="${iterationStatus.even} ? 'bg-light'">
                 <td th:text="${iterationStatus.count}"></td>
-                <td th:text="${kupon.idCoupon}"></td>
                 <td th:text="${kupon.couponCode}"></td>
                 <td th:text="${kupon.couponName}"></td>
-                <td th:text="${kupon.discountAmmount}"></td>
+                <td th:text="${kupon.discountAmount}"></td>
                 <td th:text="${kupon.expiryDate}"></td>
                 <td th:if="${promoApplied}" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
-                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/view(idCabang=${cabang.idCabang})}">Terapkan Kode Promo</a>
+                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/apply-coupon/}+${kupon.idCoupon}">Terapkan Kode Promo</a>
                 </td>
             </tr>
             </tbody>

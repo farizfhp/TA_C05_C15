@@ -7,6 +7,8 @@ import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
 import apap.tugasakhir.siRetail.rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -60,16 +62,18 @@ public class CabangRestServiceImpl implements CabangRestService{
     }
 
     @Override
-    public Mono<KuponDetail> listCoupon(Long idItemCabang){
+    public List<KuponDetail> listCoupon(){
 
-        Optional<ItemCabangModel> item = itemCabangDB.findByIdItemCabang(idItemCabang);
-        if (item.isPresent()) {
-            return this.webClient.get().uri("?idItemCabang=" + idItemCabang)
-                    .retrieve()
-                    .bodyToMono(KuponDetail.class);
-        } else {
-            throw new NoSuchElementException();
-        }
+        Mono<List<KuponDetail>> response = webClient.get().uri("rest/coupon/neededresponse")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<KuponDetail>>() {});
+        List<KuponDetail> listCoupon = response.block();
 
+        return new ArrayList<>(listCoupon);
+
+//        return this.webClient.get().uri("/rest/coupon/neededresponse")
+//                .retrieve()
+//                .bodyToMono(KuponDetail.class);
     }
 }
