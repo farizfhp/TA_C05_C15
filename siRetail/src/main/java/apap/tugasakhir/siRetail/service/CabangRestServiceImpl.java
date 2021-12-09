@@ -3,20 +3,15 @@ package apap.tugasakhir.siRetail.service;
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.repository.CabangDB;
 import apap.tugasakhir.siRetail.repository.ItemCabangDB;
-import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
 import apap.tugasakhir.siRetail.rest.Setting;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
-import java.time.LocalTime;
 import java.util.*;
 
 @Service

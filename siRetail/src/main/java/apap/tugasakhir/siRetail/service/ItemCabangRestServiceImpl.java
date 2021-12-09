@@ -6,17 +6,12 @@ import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
-import apap.tugasakhir.siRetail.rest.Setting;
-import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
@@ -52,16 +47,11 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
 
         String namaKategori = itemCabangUpdate.getKategori().replaceAll(" & ", "_DAN_").replace(" ", "_");
         itemDetail.setIdKategori(Kategori.valueOf(namaKategori).ordinal() + 1);
-        ItemCabangDetail result;
         ItemCabangDetail response = this.webClient.post().uri("/api/request-update-item/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(itemDetail), ItemCabangDetail.class)
                 .retrieve()
                 .bodyToMono(ItemCabangDetail.class).block();
-                // .subscribe(
-                //         value -> result = value,
-                //         error -> error.printStackTrace(),
-                //         () -> System.out.println("completed without a value"));
         return response;
     }
 
