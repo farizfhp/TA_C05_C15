@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SiRetail</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Tambah Item Pada Cabang</div>
+                <div class="card-body">
+                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${itemcabang}">
+                        <input type="hidden" th:field="*{cabang}" />
+<!--                        <input type="hidden" value="2" name="status" />-->
+<!--                        <label>Harga Item</label>-->
+<!--                        <input type="hidden" th:field="*{user}" />-->
+<!--                        <input type="text" readonly class="form-control" th:value="*{user?.getName()}"/>-->
+<!--                        <br>-->
+
+                        <label>Nama Item</label>
+                        <input required type="text" name="nama" class="form-control" />
+                        <br>
+
+                        <label>Harga Item</label>
+                        <input required type="number" name="harga" class="form-control" />
+                        <br>
+
+                        <label>Kategori Item</label>
+                        <input required type="text" name="kategori" class="form-control" />
+                        <br>
+
+                        <label>Jumlah Stok Item</label>
+                        <input required type="number" name="stok" class="form-control" />
+                        <br>
+
+                        <br>
+                        <button type="submit" class="btn btn-warning">Simpan</button>
+                        <a class="btn btn-link btn-outline-primary" href="/">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

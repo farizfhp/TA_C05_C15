@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <title>SiRetail</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <h2>Detail Item</h2>
+        <br>
+        <div class="row">
+          <div class="col-3">
+            ID Item
+          </div>
+          <div class="col-9">
+            <p th:text="': ' + ${item.idItemCabang}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Nama Item
+          </div>
+          <div class="col-9">
+            <p th:text="': ' + ${item.nama}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Harga Sebelum
+          </div>
+          <div class="col-9">
+            <p th:text="': ' + ${hargaSebelum}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Harga Setelah
+          </div>
+          <div class="col-9">
+            <p th:text="': ' + ${hargaSetelah}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Stok
+          </div>
+          <div class="col-9">
+            <p th:text="': ' + ${item.stok}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            Kategori
+          </div>
+          <div class="col-9">
+            <p th:text="': ' + ${item.kategori}"></p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <a class="btn btn-primary" th:href="@{/cabang}">Kembali</a>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

@@ -1,9 +1,10 @@
 package apap.tugasakhir.siRetail.service;
 
-import apap.tugasakhir.siRetail.model.CabangModel;
+import apap.tugasakhir.siRetail.model.ItemCabangModel;
 
 import java.util.List;
 
 public interface ItemCabangService {
-    List<CabangModel> getListItem();
+    List<ItemCabangModel> getListItem();
+    void addItemCabang(ItemCabangModel item);
 }
