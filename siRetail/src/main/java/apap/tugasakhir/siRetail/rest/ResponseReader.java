@@ -11,6 +11,13 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseReader {
+
+    @JsonProperty("status")
+    private Integer status;
+
+    @JsonProperty("message")
+    private String message;
+
     @JsonProperty("result")
     private JsonNode result;
 

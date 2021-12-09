@@ -13,6 +13,7 @@ import org.springframework.beans. factory.annotation.Qualifier;
 import org. springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -161,21 +162,21 @@ public class CabangController {
         //var objResponse1 = JsonConvert.DeserializeObject<List<RetrieveMultipleResponse>>(JsonStr);
     }
 
-    @GetMapping("/cabang/apply-coupon/{idCoupon}")
+//    @GetMapping("/cabang/apply-coupon/{idCoupon}")
     //cabang/id item/apply-coupon/idCoupon
-    public String applyCoupon(
-            @PathVariable(required = false) String idCoupon, Model model) {
-        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
-        KuponDetail kuponToUse = new KuponDetail();
-        for (KuponDetail kupon: listCoupon){
-            if (kupon.getIdCoupon().equals(idCoupon)){
-                kuponToUse = kupon;
-                break;
-            }
-        }
-        Integer idKuponToUse = Integer.parseInt(kuponToUse.getIdCoupon());
+//    public String applyCoupon(
+//            @PathVariable(required = false) String idCoupon, Model model) {
+//        Mono<KuponDetail> listCoupon = cabangRestService.listCoupon();
+//        KuponDetail kuponToUse = new KuponDetail();
+//        for (KuponDetail kupon: listCoupon){
+//            if (kupon.getIdCoupon().equals(idCoupon)){
+//                kuponToUse = kupon;
+//                break;
+//            }
+//        }
+//        Integer idKuponToUse = Integer.parseInt(kuponToUse.getIdCoupon());
         //set atribut idPromo dari itemCabang jadi idKuponToUse
 
-        return "view-apply-coupon";
-    }
+//        return "view-apply-coupon";
+//    }
 }
