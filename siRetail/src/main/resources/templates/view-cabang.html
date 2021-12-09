@@ -106,7 +106,7 @@
                                     </td>
                                     <td th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
                                     <td th:unless="${itemCabang.idPromo != null}">
-                                        <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}">Terapkan Promo</a>
+                                        <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}+ ${itemCabang.idItemCabang}">Terapkan Promo</a>
                                     </td>
                                     <td>
                                         <a class="btn btn-sm btn-danger" th:href="@{/itemCabang/delete/} + ${itemCabang.idItemCabang}">Hapus Item</a>

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -35,6 +36,10 @@ public class ItemCabangController {
     @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
+
+    @Qualifier("cabangRestServiceImpl")
+    @Autowired
+    private CabangRestService cabangRestService;
 
     @GetMapping("/itemCabang/add/{idCabang}")
     public String addItemCabangForm(
@@ -134,6 +139,35 @@ public class ItemCabangController {
         model.addAttribute("role", role);
         model.addAttribute("message", message);
         return "home";
+    }
+
+    @GetMapping(value = "/itemCabang/promo/{idItemCabang}")
+    private String listCoupon( @PathVariable Long idItemCabang, Model model){
+        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
+        ItemCabangModel itemCabangModel = itemCabangRestService.getItemCabangById(idItemCabang);
+        model.addAttribute("item",itemCabangModel);
+        model.addAttribute("idItemCabang",idItemCabang);
+        model.addAttribute ( "listKupon",listCoupon);
+        model.addAttribute("classActiveSettings","active");
+        return "viewall-kupon" ;
+    }
+
+    @GetMapping("/itemCabang/promo/{idItemCabang}/applyCoupon/{idCoupon}")
+    // cabang/id item/apply-coupon/idCoupon
+    public String applyCoupon(
+            @PathVariable(required = true) Long idItemCabang,
+            @PathVariable(required = true) Integer idCoupon,
+            Model model) {
+
+        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
+        for (KuponDetail kupon: listCoupon){
+            if (kupon.getIdCoupon().equals(idCoupon)){
+                itemCabangRestService.applyCoupon(idItemCabang,idCoupon,kupon.getDiscountAmount());
+                break;
+            }
+        }
+
+        return "redirect:/cabang";
     }
 
 }
