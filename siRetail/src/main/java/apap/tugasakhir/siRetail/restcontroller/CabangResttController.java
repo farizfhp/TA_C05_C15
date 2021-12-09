@@ -49,4 +49,10 @@ public class CabangResttController {
     private List<CabangModel> retrieveListCabang() {
         return cabangRestService.retrieveListCabang();
     }
+
+    @GetMapping(value = "/list-coupon")
+    private  List<KuponDetail> listCoupon(Model model){
+        return cabangRestService.listCoupon();
+        //var objResponse1 = JsonConvert.DeserializeObject<List<RetrieveMultipleResponse>>(JsonStr);
+    }
 }
