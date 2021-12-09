@@ -49,15 +49,13 @@ public class ItemCabangController {
         // List<ItemDetail> listItemAll = itemCabangRestService.getAllItem();
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
 
-//        List<ItemDetail> listItemNew = new ArrayList<>();
-//        listItemNew.add(new ItemDetail(item.getUuidItem(), item.getNama(), item.getHarga(), item.getStok(), item.getKategori()));
-//        item.setCabang(cabang);
-        System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
-
+        // System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
+        item.setCabang(cabang);
+        model.addAttribute("itemNew", item);
         model.addAttribute("cabang", cabang);
         // model.addAttribute("itemcabang", item);
         model.addAttribute("listItem", listItem);
-//        model.addAttribute("listItemNew", listItemNew);
+        // model.addAttribute("listItemNew", listItemNew);
         return "form-add-itemcabang";
     }
 
@@ -66,18 +64,37 @@ public class ItemCabangController {
             @ModelAttribute ItemCabangModel item,
             final HttpServletRequest httpServletRequest) {
 
-//        for ( ItemCabangModel itemCabang : itemCabangService.getListItem() ){
-//            if (itemCabang.getIdItemCabang().equals())
-//        }
-//        item.getCabang().setListItemCabang(listItemNew);
+        // for ( ItemCabangModel itemCabang : itemCabangService.getListItem() ){
+        // if (itemCabang.getIdItemCabang().equals())
+        // }
+        // item.getCabang().setListItemCabang(listItemNew);
+        
+        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
 
-        ItemCabangModel itemEx = itemCabangRestService.getItemCabangByUuid(uuid);
-        item.getCabang().getListItemCabang().add(itemEx);
-        itemCabangService.addItemCabang(item);
-        model.addAttribute("itemEx", item.getNama());
-        String message = "Item dengan nama " + item.getNama() + " berhasil ditambahkan.";
+        ItemCabangModel itemTemp = new ItemCabangModel();
+        for (ItemDetail itemIter:listItem){
+            if (itemIter.getUuid().equals(item.getUuidItem())){
+                itemTemp.setUuidItem(item.getUuidItem());
+                itemTemp.setCabang(item.getCabang());
+                itemTemp.setNama(itemIter.getNama());
+                itemTemp.setHarga(itemIter.getHarga());
+                itemTemp.setStok(item.getStok());
+                itemTemp.setKategori(itemIter.getKategori());
+            }
+        }
+        itemCabangService.addItemCabang(itemTemp);
 
-        return returnMessage(model, httpServletRequest, message);
+        // item.getCabang().getListItemCabang().add(itemTemp);
+
+        // ItemCabangModel itemEx = itemCabangRestService.getItemCabangByUuid(uuid);
+        // item.getCabang().getListItemCabang().add(itemEx);
+        // itemCabangService.addItemCabang(item);
+        // model.addAttribute("itemEx", item.getNama());
+        String message = "Item dengan nama " + itemTemp.getNama() + " berhasil ditambahkan.";
+        model.addAttribute("message", message);
+        model.addAttribute("listItemCabang", item.getCabang().getListItemCabang());
+        model.addAttribute("cabang", item.getCabang());
+        return "view-cabang";
     }
 
     private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
