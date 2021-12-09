@@ -7,6 +7,7 @@ import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
 import apap.tugasakhir.siRetail.service.*;
+import org.springframework.validation.BindingResult;
 import reactor.core.publisher.Flux;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,15 +51,16 @@ public class ItemCabangController {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
         // cabang.getListItemCabang().add(item);
         // List<ItemDetail> listItemAll = itemCabangRestService.getAllItem();
-        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
+        List<ItemDetail> listItemExist = itemCabangRestService.getAllItem();
+//        List<ItemCabangModel> listItemNew = new ArrayList<>();
 
         // System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
         item.setCabang(cabang);
         model.addAttribute("itemNew", item);
         model.addAttribute("cabang", cabang);
         // model.addAttribute("itemcabang", item);
-        model.addAttribute("listItem", listItem);
-        // model.addAttribute("listItemNew", listItemNew);
+        model.addAttribute("listItemExist", listItemExist);
+//         model.addAttribute("listItemNew", listItemNew);
         return "form-add-itemcabang";
     }
 
@@ -98,6 +100,21 @@ public class ItemCabangController {
         model.addAttribute("listItemCabang", item.getCabang().getListItemCabang());
         model.addAttribute("cabang", item.getCabang());
         return "view-cabang";
+    }
+
+    @PostMapping(value = "/itemCabang/add", params = {"addRow"})
+    private String addRowItemMultiple(@ModelAttribute CabangModel cabang, Model model) {
+        if (cabang.getListItemCabang() == null || cabang.getListItemCabang().size() == 0){
+            cabang.setListItemCabang(new ArrayList<>());
+            System.out.println("bikin baru");
+        }
+        cabang.getListItemCabang().add(new ItemCabangModel());
+        System.out.println("nambah baru");
+        List<ItemCabangModel> listItemCabang = cabang.getListItemCabang();
+
+        model.addAttribute("cabang", cabang);
+        model.addAttribute("listItemCabangExist", listItemCabang);
+        return "form-add-itemcabang";
     }
 
     private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
