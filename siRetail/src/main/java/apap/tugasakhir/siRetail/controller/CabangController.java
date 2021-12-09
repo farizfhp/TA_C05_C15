@@ -3,6 +3,8 @@ package apap.tugasakhir.siRetail.controller;
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.model.UserModel;
+import apap.tugasakhir.siRetail.rest.KuponDetail;
+import apap.tugasakhir.siRetail.service.CabangRestService;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.service.UserService;
@@ -28,6 +30,10 @@ public class CabangController {
     @Qualifier("itemCabangServiceImpl")
     @Autowired
     private ItemCabangService itemCabangService;
+
+    @Qualifier("cabangRestServiceImpl")
+    @Autowired
+    private CabangRestService cabangRestService;
 
     @GetMapping("/cabang")
     public String viewAllCabang(Model model) {
@@ -142,5 +148,34 @@ public class CabangController {
         model.addAttribute("cabang", cabang);
         model.addAttribute("listItemCabangExist", listItemCabang);
         return "form-add-itemcabang";
+    }
+
+    @GetMapping(value = "/cabang/list-coupon")
+    private String listCoupon(Model model){
+        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
+//        System.out.println(listCoupon.size());
+        model.addAttribute ( "listKupon",listCoupon);
+        model.addAttribute("classActiveSettings","active");
+        model.addAttribute("promoApplied",true) ;
+        return "viewall-kupon" ;
+        //var objResponse1 = JsonConvert.DeserializeObject<List<RetrieveMultipleResponse>>(JsonStr);
+    }
+
+    @GetMapping("/cabang/apply-coupon/{idCoupon}")
+    //cabang/id item/apply-coupon/idCoupon
+    public String applyCoupon(
+            @PathVariable(required = false) String idCoupon, Model model) {
+        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
+        KuponDetail kuponToUse = new KuponDetail();
+        for (KuponDetail kupon: listCoupon){
+            if (kupon.getIdCoupon().equals(idCoupon)){
+                kuponToUse = kupon;
+                break;
+            }
+        }
+        Integer idKuponToUse = Integer.parseInt(kuponToUse.getIdCoupon());
+        //set atribut idPromo dari itemCabang jadi idKuponToUse
+
+        return "view-apply-coupon";
     }
 }

@@ -7,6 +7,8 @@ import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
 import apap.tugasakhir.siRetail.rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -15,9 +17,7 @@ import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -50,22 +50,6 @@ public class CabangRestServiceImpl implements CabangRestService{
         return result;
     }
 
-    // @Override
-    // public ArrayList<HashMap<String, String>> retrieveListAlamatCabang(){
-    //     ArrayList<HashMap<String,String>> result = new ArrayList<>();
-    //     List<CabangModel> listCabang = cabangDB.findAll();
-
-    //     for (CabangModel cabang : listCabang){
-    //         HashMap<String,String> mapAlamatCabang = new HashMap<>();
-    //         String idCabang = String.valueOf(cabang.getIdCabang());
-    //         String alamat = cabang.getAlamat();
-    //         mapAlamatCabang.put("id",idCabang);
-    //         mapAlamatCabang.put("alamat",alamat);
-    //         result.add(mapAlamatCabang);
-    //     }
-    //     return result;
-    // }
-
     @Override
     public CabangModel createCabang(CabangModel cabang) {
         cabang.setStatus(0);
@@ -78,13 +62,18 @@ public class CabangRestServiceImpl implements CabangRestService{
     }
 
     @Override
-    public Mono<KuponDetail> listCoupon(Long idItemCabang){
+    public List<KuponDetail> listCoupon(){
 
-        // ItemCabangModel item = itemCabangDB.findByIdItemCabang(idItemCabang);
-        // return this.webClient.get().uri("?idItemCabang=" + item.getIdItemCabang())
-        //         .retrieve()
-        //         .bodyToMono(KuponDetail.class);
-        return null;
+        Mono<List<KuponDetail>> response = webClient.get().uri("rest/coupon/neededresponse")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<KuponDetail>>() {});
+        List<KuponDetail> listCoupon = response.block();
 
+        return new ArrayList<>(listCoupon);
+
+//        return this.webClient.get().uri("/rest/coupon/neededresponse")
+//                .retrieve()
+//                .bodyToMono(KuponDetail.class);
     }
 }
