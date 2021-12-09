@@ -12,5 +12,5 @@ public interface CabangRestService {
     ArrayList<HashMap<String,String>> retrieveListAlamatCabang();
     CabangModel createCabang(CabangModel cabang);
     List<CabangModel> retrieveListCabang();
-    Mono<KuponDetail> listCoupon(Long idItemCabang);
+    List<KuponDetail> listCoupon();
 }
