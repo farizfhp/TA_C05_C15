@@ -102,7 +102,7 @@
                                     <td th:text="${itemCabang.stok}"></td>
                                     <td th:text="${itemCabang.kategori}"></td>
                                     <td>
-                                        <a class="btn btn-sm btn-warning" th:href="@{/itemCabang/tambahStok/} + ${itemCabang.idItemCabang}">Request</a>
+                                        <a class="btn btn-sm btn-warning" th:href="@{/itemCabang/tambahStok/} + ${cabang.idCabang} + @{/} + ${itemCabang.uuidItem}">Request</a>
                                     </td>
                                     <td th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
                                     <td th:unless="${itemCabang.idPromo != null}">
