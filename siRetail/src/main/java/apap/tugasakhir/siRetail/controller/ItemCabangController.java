@@ -65,6 +65,8 @@ public class ItemCabangController {
 //        listItemNew.add(new ItemDetail(item.getUuidItem(), item.getNama(), item.getHarga(), item.getStok(), item.getKategori()));
 //        item.setCabang(cabang);
 
+        System.out.println(cabang.getListItemCabang());
+        System.out.println(listItem.get(0).getUuidItem());
         model.addAttribute("cabang", cabang);
         model.addAttribute("listItem", listItem);
         model.addAttribute("listItemNew", listItemNew);
