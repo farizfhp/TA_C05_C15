@@ -48,30 +48,53 @@ public class ItemCabangController {
         // cabang.getListItemCabang().add(item);
         // List<ItemDetail> listItemAll = itemCabangRestService.getAllItem();
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
-        List<ItemDetail> listItemNew = new ArrayList<>();
 
-        listItemNew.add(new ItemDetail());
-
+        // System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
         item.setCabang(cabang);
-        System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
-
+        model.addAttribute("itemNew", item);
         model.addAttribute("cabang", cabang);
         // model.addAttribute("itemcabang", item);
         model.addAttribute("listItem", listItem);
-        model.addAttribute("listItemNew", listItemNew);
+        // model.addAttribute("listItemNew", listItemNew);
         return "form-add-itemcabang";
     }
 
     @PostMapping(value = "/itemCabang/add", params = { "save" })
-    public String addItemCabangSubmit(
+    public String addItemCabangSubmit(String uuid, Integer id, Model model,
             @ModelAttribute ItemCabangModel item,
-            Model model,
             final HttpServletRequest httpServletRequest) {
-        item.getCabang().setListItemCabang(listItemNew);
-        itemCabangService.addItemCabang(item);
-        String message = "Item dengan nama " + item.getNama() + " berhasil ditambahkan.";
 
-        return returnMessage(model, httpServletRequest, message);
+        // for ( ItemCabangModel itemCabang : itemCabangService.getListItem() ){
+        // if (itemCabang.getIdItemCabang().equals())
+        // }
+        // item.getCabang().setListItemCabang(listItemNew);
+        
+        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
+
+        ItemCabangModel itemTemp = new ItemCabangModel();
+        for (ItemDetail itemIter:listItem){
+            if (itemIter.getUuid().equals(item.getUuidItem())){
+                itemTemp.setUuidItem(item.getUuidItem());
+                itemTemp.setCabang(item.getCabang());
+                itemTemp.setNama(itemIter.getNama());
+                itemTemp.setHarga(itemIter.getHarga());
+                itemTemp.setStok(item.getStok());
+                itemTemp.setKategori(itemIter.getKategori());
+            }
+        }
+        itemCabangService.addItemCabang(itemTemp);
+
+        // item.getCabang().getListItemCabang().add(itemTemp);
+
+        // ItemCabangModel itemEx = itemCabangRestService.getItemCabangByUuid(uuid);
+        // item.getCabang().getListItemCabang().add(itemEx);
+        // itemCabangService.addItemCabang(item);
+        // model.addAttribute("itemEx", item.getNama());
+        String message = "Item dengan nama " + itemTemp.getNama() + " berhasil ditambahkan.";
+        model.addAttribute("message", message);
+        model.addAttribute("listItemCabang", item.getCabang().getListItemCabang());
+        model.addAttribute("cabang", item.getCabang());
+        return "view-cabang";
     }
 
     private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
@@ -106,4 +129,5 @@ public class ItemCabangController {
         model.addAttribute("message", message);
         return "home";
     }
+
 }

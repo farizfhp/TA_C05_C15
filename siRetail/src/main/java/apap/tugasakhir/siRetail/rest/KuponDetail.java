@@ -1,26 +1,29 @@
 package apap.tugasakhir.siRetail.rest;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
 
-@Getter @Setter
+@Getter
+@Setter
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class KuponDetail {
 
-    @JsonProperty("idCoupon")
+    @JsonProperty("id-coupon")
     private String idCoupon;
 
-    @JsonProperty("couponCode")
-    private Integer couponCode;
+    @JsonProperty("coupon-code")
+    private String couponCode;
 
-    @JsonProperty("couponName")
-    private Integer couponName;
+    @JsonProperty("coupon-name")
+    private String couponName;
 
-    @JsonProperty("discountAmount")
+    @JsonProperty("discount-amount")
     private String discountAmount;
 
-    @JsonProperty("expiryDate")
+    @JsonProperty("expiry-date")
     private String expiryDate;
 }
