@@ -14,25 +14,42 @@
             <div class="card">
                 <div class="card-header">Tambah Item Pada Cabang</div>
                 <div class="card-body">
-                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${itemcabang}">
-                        <input type="hidden" th:field="*{cabang}" />
+                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${listItemNew}">
+                        <!-- <input type="hidden" th:field="*{cabang}" /> -->
 <!--                        <input type="hidden" value="2" name="status" />-->
 <!--                        <label>Harga Item</label>-->
 <!--                        <input type="hidden" th:field="*{user}" />-->
 <!--                        <input type="text" readonly class="form-control" th:value="*{user?.getName()}"/>-->
 <!--                        <br>-->
+                        <label>Nama Cabang</label>
+                        <input type="text" readonly class="form-control" th:value="${cabang.getNama()}"/>
 
-                        <label>Nama Item</label>
-                        <input required type="text" name="nama" class="form-control" />
-                        <br>
-
-                        <label>Harga Item</label>
-                        <input required type="number" name="harga" class="form-control" />
-                        <br>
-
-                        <label>Kategori Item</label>
-                        <input required type="text" name="kategori" class="form-control" />
-                        <br>
+                        <table class="table">
+                            <thead>
+                                <th>Item</th>
+                                <th>
+                                    <button class="btn btn-primary" type="submit" name="addRow">Tambah Row</button>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item, iterationStatus : *{listItemCabang}">
+                                    <td>
+                                        <select name="noItem"
+                                            th:field="*{listItem[__${iterationStatus.index}__].idItemCabang}"
+                                            class="form-control">
+                                            <div th:each="itemEx, iterationStatus2 : ${listItem}">
+                                                <option th:value="${itemEx.noFilm}" th:text="${itemEx.namaFilm}">
+                                                </option>
+                                            </div>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit"
+                                            name="deleteRow">Hapus</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <label>Jumlah Stok Item</label>
                         <input required type="number" name="stok" class="form-control" />
