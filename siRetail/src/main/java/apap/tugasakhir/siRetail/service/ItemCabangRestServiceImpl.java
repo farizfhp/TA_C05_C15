@@ -78,7 +78,6 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
         List<ItemDetail> itemCabangList = new ArrayList<>();
 
         ResponseReader response = this.webClientItem.get().uri("/api/item")
-                // ResponseReader response = this.webClientItem.get().uri(fitur12Url)
                 .retrieve()
                 .bodyToMono(ResponseReader.class).block();
 
@@ -92,6 +91,32 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
         }
 
         return itemCabangList;
+
+    }
+
+    @Override
+    public ResponseReader updateSiItem(ItemCabangModel item, Integer stokUpdate) {
+        ItemDetail itemDetail = new ItemDetail();
+
+        itemDetail.setStok(stokUpdate);
+        System.out.println("baru mau masuk");
+        ResponseReader response = this.webClientItem.put().uri("/api/item/" + item.getUuidItem())
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(itemDetail), ItemCabangDetail.class)
+                .retrieve()
+                .bodyToMono(ResponseReader.class).block();
+        System.out.println("dah masuk");
+        return response;
+    }
+
+    @Override
+    public Integer getItemStok(String uuid) {
+
+        ResponseReader response = this.webClientItem.get().uri("/api/item/" + uuid)
+                .retrieve()
+                .bodyToMono(ResponseReader.class).block();
+
+        return response.getResult().get("stok").intValue();
 
     }
 
@@ -116,10 +141,10 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
     }
 
     @Override
-    public void applyCoupon(Long idItemCabang, Integer idCoupon, Float discountAmount){
+    public void applyCoupon(Long idItemCabang, Integer idCoupon, Float discountAmount) {
         ItemCabangModel item = getItemCabangById(idItemCabang);
         item.setIdPromo(idCoupon);
-        Integer harga = (int)((1-discountAmount) * item.getHarga());
+        Integer harga = (int) ((1 - discountAmount) * item.getHarga());
         item.setHarga(harga);
         itemCabangDB.save(item);
     }

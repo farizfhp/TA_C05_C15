@@ -10,11 +10,11 @@
 <nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Tambah Item Pada Cabang</div>
                 <div class="card-body">
-                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${listItem}">
+                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${cabang}">
                         <!-- <input type="hidden" th:field="*{cabang}" /> -->
 <!--                        <input type="hidden" value="2" name="status" />-->
 <!--                        <label>Harga Item</label>-->
@@ -33,12 +33,18 @@
                             </thead>
                             <tbody>
                                 <div>
-                                    <tr th:each="itemCabang, iterationStatus : ${listItem}">
+                                    <tr th:each="itemCabang, iterationStatus : ${cabang.listItemCabang}">
                                         <td>
-                                            <input type="text" readonly class="form-control" th:value="${itemCabang.nama}"/>
+                                            <input type="text" readonly class="form-control" th:value="*{listItemCabang[__${iterationStatus.index}__].nama}"/>
+                                            <input type="hidden" th:field="*{listItemCabang[__${iterationStatus.index}__].nama}" />
+                                            <input type="hidden" th:field="*{listItemCabang[__${iterationStatus.index}__].uuidItem}" />
+                                            <input type="hidden" th:field="*{listItemCabang[__${iterationStatus.index}__].harga}" />
+                                            <input type="hidden" th:field="*{listItemCabang[__${iterationStatus.index}__].kategori}" />
+                                            <input type="hidden" th:field="*{listItemCabang[__${iterationStatus.index}__].cabang}" />
+
                                         </td>
                                         <td>
-                                            <input class="form-control" type="number" min="1" th:field="${itemCabang.stok}" />
+                                            <input class="form-control" type="number" min="0" th:field="*{listItemCabang[__${iterationStatus.index}__].stok}"/>
                                         </td>
                                     </tr>
                                 </div>
