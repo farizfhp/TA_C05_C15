@@ -88,7 +88,7 @@
                                     <th>Stok</th>
                                     <th>Kategori</th>
                                     <th>Request Tambah Stok</th>
-                                    <th>Promo</th>
+                                    <th sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" >Promo</th>
                                     <th>Hapus</th>
                                 </tr>
                                 </thead>
@@ -104,8 +104,8 @@
                                     <td>
                                         <a class="btn btn-sm btn-warning" th:href="@{/itemCabang/tambahStok/} + ${cabang.idCabang} + @{/} + ${itemCabang.uuidItem}">Request</a>
                                     </td>
-                                    <td th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
-                                    <td th:unless="${itemCabang.idPromo != null}">
+                                    <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
+                                    <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" th:unless="${itemCabang.idPromo != null}">
                                         <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}+ ${itemCabang.idItemCabang}">Terapkan Promo</a>
                                     </td>
                                     <td>
