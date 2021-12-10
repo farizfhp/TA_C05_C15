@@ -15,5 +15,7 @@ public interface ItemCabangRestService {
     ItemCabangModel getItemCabangByUuid(String uuidItem);
 
     List<ItemDetail> getAllItem();
+
     void applyCoupon(Long idItemCabang, Integer idCoupon, Float discountAmount);
+
 }

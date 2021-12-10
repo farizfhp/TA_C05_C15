@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -170,5 +171,23 @@ public class ItemCabangController {
 
         return "redirect:/cabang";
     }
+    @PostMapping("/itemCabang/delete")
+    public String deletePenjaga(
+            @ModelAttribute CabangModel cabang,
+            Model model
+    ) {
+        model.addAttribute("idCabang", cabang.getIdCabang());
+        boolean res = false;
+        for (ItemCabangModel item : cabang.getListItemCabang()) {
+            res = itemCabangService.deleteItemCabang(item);
+        }
+        if (res == true) {
+            String message = "Item yang dipilih berhasil dihapus.";
+            model.addAttribute("message", message);
+            return "view-cabang";
+        }
+        return "";
+    }
+
 
 }
