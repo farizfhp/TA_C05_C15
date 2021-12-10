@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-header">Tambah Item Pada Cabang</div>
                 <div class="card-body">
-                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${listItemNew}">
+                    <form th:action="@{/itemCabang/add}" method="POST" th:object="${listItem}">
                         <!-- <input type="hidden" th:field="*{cabang}" /> -->
 <!--                        <input type="hidden" value="2" name="status" />-->
 <!--                        <label>Harga Item</label>-->
@@ -32,45 +32,13 @@
                                 </th>
                             </thead>
                             <tbody>
-<!--                            <div th:if="${listItemNew}">-->
-<!--                                <div th:each="itemCabang, iterationStatus : ${listItemCabangExist}">-->
                                 <div>
-                                    <tr th:each="itemCabang, iterationStatus : ${listItemCabang}">
+                                    <tr th:each="itemCabang, iterationStatus : ${listItem}">
                                         <td>
-                                            <select name="uuidItem"
-                                                    th:field="*{listItemCabangExist[__${iterationStatus.index}__].idItemCabang}"
-                                                    class="form-control">
-                                                <div>
-                                                    <option th:each="itemEx, iterationStatus2 : ${listItemExist}" th:value="${itemEx.uuid}" th:text="${itemEx.nama}" th:selected="${(itemCabang.uuidItem) == (itemEx.uuid)}">
-                                                    </option>
-                                                </div>
-                                            </select>
-                                        </td>
-<!--                                        <td>-->
-<!--&lt;!&ndash;                                            <select class="form-control"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    th:field="${listItemCabangExist[__${iterationStatus.index}__].uuidItem}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <option&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        th:each="itemEx: ${listItemExist}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        th:text="${itemEx.nama}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        th:value="${itemEx.uuid}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        th:selected="${(itemCabang.uuidItem) == (itemEx.uuid)}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                </option>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </select>&ndash;&gt;-->
-<!--                                            <select name="uuidItem" class="form-control" th:field="${listItemCabangExist[__${iterationStatus.index}__].uuidItem}">-->
-<!--                                                <option selected value=""> &#45;&#45; Pilih Item &#45;&#45; </option>-->
-<!--                                                <option th:each="item : ${listItemExist}"-->
-<!--                                                        th:value="${itemEx.uuid}"-->
-<!--                                                        th:text="${itemEx.nama}"-->
-<!--                                                        th:selected="${(itemCabang.uuidItem) == (itemEx.uuid)}">-->
-<!--                                                        name="uuidItem">-->
-<!--                                                </option>-->
-<!--                                            </select>-->
-<!--                                        </td>-->
-                                        <td>
-                                            <input class="form-control" type="number" min="1" th:field="${cabang.listItemCabang[__${iterationStatus.index}__].stok}" />
+                                            <input type="text" readonly class="form-control" th:value="${itemCabang.nama}"/>
                                         </td>
                                         <td>
-                                            <button class="btn btn-danger" name="deleteRow" type="submit" th:value="${iterationStatus.count - 1}">Delete</button>
+                                            <input class="form-control" type="number" min="1" th:field="${itemCabang.stok}" />
                                         </td>
                                     </tr>
                                 </div>
