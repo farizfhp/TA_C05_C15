@@ -6,17 +6,12 @@ import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
-import apap.tugasakhir.siRetail.rest.Setting;
-import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
@@ -41,7 +36,7 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
     }
 
     @Override
-    public Mono<ItemCabangDetail> updateStok(ItemCabangModel itemCabangUpdate) {
+    public ItemCabangDetail updateStok(ItemCabangModel itemCabangUpdate) {
 
         // ItemCabangModel itemCabang = getItemCabangById(idItemCabang);
         ItemCabangDetail itemDetail = new ItemCabangDetail();
@@ -52,12 +47,12 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
 
         String namaKategori = itemCabangUpdate.getKategori().replaceAll(" & ", "_DAN_").replace(" ", "_");
         itemDetail.setIdKategori(Kategori.valueOf(namaKategori).ordinal() + 1);
-
-        return this.webClient.post().uri("/api/request-update-item/add" + itemCabangUpdate.getUuidItem())
+        ItemCabangDetail response = this.webClient.post().uri("/api/request-update-item/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(itemDetail), ItemCabangDetail.class)
                 .retrieve()
-                .bodyToMono(ItemCabangDetail.class);
+                .bodyToMono(ItemCabangDetail.class).block();
+        return response;
     }
 
     @Override
@@ -85,7 +80,7 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
         List<ItemDetail> itemCabangList = new ArrayList<>();
 
         ResponseReader response = this.webClientItem.get().uri("/api/item")
-//        ResponseReader response = this.webClientItem.get().uri(fitur12Url)
+                // ResponseReader response = this.webClientItem.get().uri(fitur12Url)
                 .retrieve()
                 .bodyToMono(ResponseReader.class).block();
 
@@ -95,7 +90,7 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
             Integer harga = item.get("harga").intValue();
             Integer stok = item.get("stok").intValue();
             String kategori = item.get("kategori").textValue();
-            itemCabangList.add(new ItemDetail(uuid,nama,harga,stok,kategori));
+            itemCabangList.add(new ItemDetail(uuid, nama, harga, stok, kategori));
         }
 
         return itemCabangList;

@@ -1,6 +1,5 @@
 package apap.tugasakhir.siRetail.service;
 
-import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.RoleModel;
 
 import java.util.List;
