@@ -19,6 +19,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+!siRetail/src/main/resources/application.properties
 
 ### STS ###
 .apt_generated
