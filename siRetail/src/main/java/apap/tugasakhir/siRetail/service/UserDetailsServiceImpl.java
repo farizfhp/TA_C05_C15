@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
