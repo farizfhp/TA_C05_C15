@@ -37,4 +37,9 @@ public class CabangServiceImpl implements CabangService{
 
     @Override
     public void deleteCabang(CabangModel cabang) { cabangDB.delete(cabang); }
+
+    @Override
+    public boolean checkCabang(CabangModel cabang1, CabangModel cabang2) {
+        return (cabang1.getIdCabang() == cabang2.getIdCabang()) ? true : false;
+    }
 }

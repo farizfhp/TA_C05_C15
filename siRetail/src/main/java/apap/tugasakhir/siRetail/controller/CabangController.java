@@ -45,7 +45,7 @@ public class CabangController {
         model.addAttribute("cabang", cabang);
 
         //nambahin buat list all item di tiap cabang
-        model.addAttribute("listItemCabang", cabang.getListItemCabang());
+        // model.addAttribute("listItemCabang", cabang.getListItemCabang());
         return "view-cabang";
     }
 
