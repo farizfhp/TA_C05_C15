@@ -19,6 +19,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import javax.transaction.Transactional;
 import java.util.*;
 
+
 @Service
 @Transactional
 public class CabangRestServiceImpl implements CabangRestService{
@@ -55,7 +56,6 @@ public class CabangRestServiceImpl implements CabangRestService{
         cabang.setStatus(0);
         return cabangDB.save(cabang);
     }
-
     @Override
     public List<CabangModel> retrieveListCabang() {
         return cabangDB.findAll();
@@ -89,5 +89,4 @@ public class CabangRestServiceImpl implements CabangRestService{
         }
         return result;
     }
-
 }
