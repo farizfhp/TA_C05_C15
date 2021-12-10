@@ -11,7 +11,7 @@
 <nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
 <div class="container">
     <div class="card m-4 p-4">
-        <div th:unless="${message} == null" class="card border border-dark rounded mb-5">
+        <div th:unless="${message} == null" class="card border border-dark rounded mb-3">
             <div class="card-header h3">
                 Info
             </div>
@@ -75,8 +75,8 @@
                         <p th:text="': ' + ${cabang.noTelp}"></p>
                     </div>
                 </div>
-                <div th:if="*{listItemCabang!=null}">
-                    <div th:if="*{listItemCabang.size() !=0}">
+                <div th:if="${cabang.listItemCabang!=null}">
+                    <div th:if="${cabang.listItemCabang.size() !=0}">
                         <form th:action="@{/itemCabang/delete}" th:object="${cabang}" method="POST">
                             <table class="table">
                                 <thead>
@@ -93,7 +93,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="itemCabang, iterationStatus : ${listItemCabang}"
+                                <tr th:each="itemCabang, iterationStatus : ${cabang.listItemCabang}"
                                     th:class="${iterationStatus.even} ? 'bg-light'">
                                     <td th:text="${iterationStatus.count}"></td>
                                     <td th:text="${itemCabang.idItemCabang}"></td>
@@ -113,7 +113,7 @@
                                     </td>
                                     <td>
                                         <input class="form-check-input" type="checkbox"
-                                               th:field="*{listItemCabang}" th:value="${itemCabang.idItemCabang}"
+                                               th:field="*{listItemCabang}" value="0"
                                                id="flexCheckDefault">
                                     </td>
                                 </tr>
@@ -122,8 +122,8 @@
                             <input th:if="${role} == 'MANAGER'" type="submit" value="Delete yang dipilih" class="btn btn-danger">
                         </form>
                     </div>
-                    <div th:unless="*{listItemCabang.size() != 0}">
-                        <h2 th:text="'Tidak ada itemCabang'"></h2>
+                    <div th:unless="${cabang.listItemCabang.size() != 0}">
+                        <h2 th:text="'Tidak ada item pada cabang'"></h2>
                     </div>
                 </div>
             </div>

@@ -14,4 +14,6 @@ public interface CabangService {
     CabangModel getCabangByIdCabang(Long idCabang);
 
     void deleteCabang(CabangModel cabang);
+
+    boolean checkCabang(CabangModel cabang1, CabangModel cabang2);
 }
