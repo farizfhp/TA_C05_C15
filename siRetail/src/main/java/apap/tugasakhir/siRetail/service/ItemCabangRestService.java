@@ -12,4 +12,5 @@ public interface ItemCabangRestService {
     ItemCabangModel getItemCabangById(Long idItemCabang);
     ItemCabangModel getItemCabangByUuid(String uuidItem);
     List<ItemDetail> getAllItem();
+    boolean deleteItem(ItemCabangModel item);
 }

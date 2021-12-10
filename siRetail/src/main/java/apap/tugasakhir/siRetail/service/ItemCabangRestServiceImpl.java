@@ -1,12 +1,15 @@
 package apap.tugasakhir.siRetail.service;
 
+import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.model.Kategori;
+import apap.tugasakhir.siRetail.repository.CabangDB;
 import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
 import apap.tugasakhir.siRetail.rest.Setting;
+import org.springframework.beans.factory.annotation.Qualifier;
 import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,6 +37,13 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
 
     @Autowired
     private ItemCabangDB itemCabangDB;
+
+    @Autowired
+    private CabangDB cabangDB;
+
+    @Qualifier("cabangServiceImpl")
+    @Autowired
+    private CabangService cabangService;
 
     public ItemCabangRestServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("https://0a5f4b1b-c14b-48f4-ac59-a2786792046e.mock.pstmn.io").build();
