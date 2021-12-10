@@ -5,8 +5,7 @@ import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
-import apap.tugasakhir.siRetail.service.*;
-import reactor.core.publisher.Flux;
+import apap.tugasakhir.siRetail.service.CabangRestService;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangRestService;
 import apap.tugasakhir.siRetail.service.ItemCabangService;
@@ -17,9 +16,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -128,7 +127,7 @@ public class ItemCabangController {
         // System.out.println("UPDATE STOK ITEM ===== " + response.getTambahanStok());
         // System.out.println("UPDATE STOK ITEM ===== " + response);
 
-        String message = "Item dengan ID " + response.getUuidItem() + " berhasil ditambahkan.";
+        String message = "Berhasil melakukan request penambahan stok dari item dengan UUID " + response.getUuidItem() + " sebanyak " + response.getTambahanStok() + " .";
         return returnMessage(model, httpServletRequest, message);
     }
 
@@ -172,5 +171,23 @@ public class ItemCabangController {
 
         return "redirect:/cabang";
     }
+    @PostMapping("/itemCabang/delete")
+    public String deletePenjaga(
+            @ModelAttribute CabangModel cabang,
+            Model model
+    ) {
+        model.addAttribute("idCabang", cabang.getIdCabang());
+        boolean res = false;
+        for (ItemCabangModel item : cabang.getListItemCabang()) {
+            res = itemCabangService.deleteItemCabang(item);
+        }
+        if (res == true) {
+            String message = "Item yang dipilih berhasil dihapus.";
+            model.addAttribute("message", message);
+            return "view-cabang";
+        }
+        return "";
+    }
+
 
 }

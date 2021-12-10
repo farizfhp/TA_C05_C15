@@ -3,8 +3,6 @@ package apap.tugasakhir.siRetail.controller;
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.model.UserModel;
-import apap.tugasakhir.siRetail.rest.KuponDetail;
-import apap.tugasakhir.siRetail.service.CabangRestService;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.service.UserService;
@@ -116,7 +114,7 @@ public class CabangController {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
         model.addAttribute("cabang", cabang);
 
-        if (cabang.getListItemCabang().size() == 0 || cabang.getStatus() == 0){
+        if (cabang.getListItemCabang().size() == 0){
             cabangService.deleteCabang(cabang);
             String message = "Cabang dengan nama " + cabang.getNama() + " berhasil dihapus.";
             return returnMessage(model, httpServletRequest, message);

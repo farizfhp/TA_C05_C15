@@ -5,6 +5,7 @@ import java.util.List;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
+import apap.tugasakhir.siRetail.rest.ResponseReader;
 
 public interface ItemCabangRestService {
     ItemCabangDetail updateStok(ItemCabangModel itemCabangUpdate);
@@ -14,5 +15,7 @@ public interface ItemCabangRestService {
     ItemCabangModel getItemCabangByUuid(String uuidItem);
 
     List<ItemDetail> getAllItem();
+
     void applyCoupon(Long idItemCabang, Integer idCoupon, Float discountAmount);
+
 }
