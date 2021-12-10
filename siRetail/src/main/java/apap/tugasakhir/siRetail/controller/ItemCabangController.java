@@ -5,8 +5,7 @@ import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
-import apap.tugasakhir.siRetail.service.*;
-import reactor.core.publisher.Flux;
+import apap.tugasakhir.siRetail.service.CabangRestService;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangRestService;
 import apap.tugasakhir.siRetail.service.ItemCabangService;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -142,35 +140,6 @@ public class ItemCabangController {
         model.addAttribute("role", role);
         model.addAttribute("message", message);
         return "home";
-    }
-
-    @GetMapping(value = "/itemCabang/promo/{idItemCabang}")
-    private String listCoupon( @PathVariable Long idItemCabang, Model model){
-        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
-        ItemCabangModel itemCabangModel = itemCabangRestService.getItemCabangById(idItemCabang);
-        model.addAttribute("item",itemCabangModel);
-        model.addAttribute("idItemCabang",idItemCabang);
-        model.addAttribute ( "listKupon",listCoupon);
-        model.addAttribute("classActiveSettings","active");
-        return "viewall-kupon" ;
-    }
-
-    @GetMapping("/itemCabang/promo/{idItemCabang}/applyCoupon/{idCoupon}")
-    // cabang/id item/apply-coupon/idCoupon
-    public String applyCoupon(
-            @PathVariable(required = true) Long idItemCabang,
-            @PathVariable(required = true) Integer idCoupon,
-            Model model) {
-
-        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
-        for (KuponDetail kupon: listCoupon){
-            if (kupon.getIdCoupon().equals(idCoupon)){
-                itemCabangRestService.applyCoupon(idItemCabang,idCoupon,kupon.getDiscountAmount());
-                break;
-            }
-        }
-
-        return "redirect:/cabang";
     }
 
     @GetMapping(value = "/itemCabang/promo/{idItemCabang}")

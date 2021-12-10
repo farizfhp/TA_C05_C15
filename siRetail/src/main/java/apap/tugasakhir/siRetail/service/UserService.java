@@ -3,7 +3,6 @@ package apap.tugasakhir.siRetail.service;
 import apap.tugasakhir.siRetail.model.UserModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
     UserModel addUser(UserModel user);

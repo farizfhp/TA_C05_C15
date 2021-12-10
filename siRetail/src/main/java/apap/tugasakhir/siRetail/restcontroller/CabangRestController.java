@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class CabangResttController {
+public class CabangRestController {
     @Autowired
     CabangRestService cabangRestService;
 
