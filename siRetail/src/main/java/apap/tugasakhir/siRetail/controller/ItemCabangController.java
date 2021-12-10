@@ -173,33 +173,4 @@ public class ItemCabangController {
         return "redirect:/cabang";
     }
 
-    @GetMapping(value = "/itemCabang/promo/{idItemCabang}")
-    private String listCoupon( @PathVariable Long idItemCabang, Model model){
-        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
-        ItemCabangModel itemCabangModel = itemCabangRestService.getItemCabangById(idItemCabang);
-        model.addAttribute("item",itemCabangModel);
-        model.addAttribute("idItemCabang",idItemCabang);
-        model.addAttribute ( "listKupon",listCoupon);
-        model.addAttribute("classActiveSettings","active");
-        return "viewall-kupon" ;
-    }
-
-    @GetMapping("/itemCabang/promo/{idItemCabang}/applyCoupon/{idCoupon}")
-    // cabang/id item/apply-coupon/idCoupon
-    public String applyCoupon(
-            @PathVariable(required = true) Long idItemCabang,
-            @PathVariable(required = true) Integer idCoupon,
-            Model model) {
-
-        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
-        for (KuponDetail kupon: listCoupon){
-            if (kupon.getIdCoupon().equals(idCoupon)){
-                itemCabangRestService.applyCoupon(idItemCabang,idCoupon,kupon.getDiscountAmount());
-                break;
-            }
-        }
-
-        return "redirect:/cabang";
-    }
-
 }
