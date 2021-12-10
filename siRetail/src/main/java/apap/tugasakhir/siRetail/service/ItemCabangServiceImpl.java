@@ -24,4 +24,11 @@ public class ItemCabangServiceImpl implements ItemCabangService{
     public void addItemCabang(ItemCabangModel item) {
         itemCabangDB.save(item);
     }
+
+    @Override
+    public boolean deleteItemCabang(ItemCabangModel item) {
+        itemCabangDB.delete(item);
+        return true;
+    }
+
 }

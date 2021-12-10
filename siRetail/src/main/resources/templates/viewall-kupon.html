@@ -12,7 +12,7 @@
 <div class="container">
 
     <div th:if="*{listKupon.size() !=0}">
-        <h2>Daftar Kupon</h2>
+        <h2 th:text="'Daftar Kupon untuk Item ' + ${item.nama}" ></h2>
         <br>
         <table class="table" style="text-align: center">
             <thead>
@@ -22,9 +22,7 @@
                 <th>Coupon Name</th>
                 <th>Discount Amount</th>
                 <th>Expiry Date</th>
-                <th th:if="${promoApplied}" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
-<!--                    <span th:if="${promoApplied}" ></span>-->
-                </th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -35,8 +33,8 @@
                 <td th:text="${kupon.couponName}"></td>
                 <td th:text="${kupon.discountAmount}"></td>
                 <td th:text="${kupon.expiryDate}"></td>
-                <td th:if="${promoApplied}" sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
-                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/apply-coupon/}+${kupon.idCoupon}">Terapkan Kode Promo</a>
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}+${idItemCabang}+@{/applyCoupon/}+${kupon.idCoupon}">Terapkan Kode Promo</a>
                 </td>
             </tr>
             </tbody>

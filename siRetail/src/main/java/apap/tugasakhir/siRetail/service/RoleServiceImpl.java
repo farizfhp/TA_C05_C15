@@ -1,6 +1,5 @@
 package apap.tugasakhir.siRetail.service;
 
-import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.RoleModel;
 import apap.tugasakhir.siRetail.repository.RoleDB;
 import org.springframework.beans.factory.annotation.Autowired;
