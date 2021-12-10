@@ -7,4 +7,5 @@ import java.util.List;
 public interface ItemCabangService {
     List<ItemCabangModel> getListItem();
     void addItemCabang(ItemCabangModel item);
+    boolean deleteItemCabang(ItemCabangModel item);
 }

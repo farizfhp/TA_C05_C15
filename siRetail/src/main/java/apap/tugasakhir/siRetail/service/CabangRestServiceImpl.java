@@ -2,6 +2,11 @@ package apap.tugasakhir.siRetail.service;
 
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.repository.CabangDB;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import apap.tugasakhir.siRetail.model.ItemCabangModel;
+import apap.tugasakhir.siRetail.repository.CabangDB;
 import apap.tugasakhir.siRetail.repository.ItemCabangDB;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
@@ -13,6 +18,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.transaction.Transactional;
 import java.util.*;
+
 
 @Service
 @Transactional
@@ -50,7 +56,6 @@ public class CabangRestServiceImpl implements CabangRestService{
         cabang.setStatus(0);
         return cabangDB.save(cabang);
     }
-
     @Override
     public List<CabangModel> retrieveListCabang() {
         return cabangDB.findAll();
@@ -84,5 +89,4 @@ public class CabangRestServiceImpl implements CabangRestService{
         }
         return result;
     }
-
 }

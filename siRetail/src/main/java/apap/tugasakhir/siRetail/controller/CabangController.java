@@ -114,7 +114,7 @@ public class CabangController {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
         model.addAttribute("cabang", cabang);
 
-        if (cabang.getListItemCabang().size() == 0 || cabang.getStatus() == 0){
+        if (cabang.getListItemCabang().size() == 0){
             cabangService.deleteCabang(cabang);
             String message = "Cabang dengan nama " + cabang.getNama() + " berhasil dihapus.";
             return returnMessage(model, httpServletRequest, message);
