@@ -125,23 +125,19 @@ public class CabangController {
 
     }
 
-    @PostMapping(value = "/cabang/add", params = {"addRow"})
-    private String addRowItemMultiple(@ModelAttribute CabangModel cabang, Model model) {
-        if (cabang.getListItemCabang() == null || cabang.getListItemCabang().size() == 0){
-            cabang.setListItemCabang(new ArrayList<>());
-        }
-//        bioskop.getListFilm().add(new FilmModel());
-//        List<FilmModel> listFilm = filmService.getListFilm();
+
+//    @PostMapping(value = "/itemCabang/add", params = {"addRow"})
+//    private String addRowItemMultiple(@ModelAttribute CabangModel cabang, Model model) {
+//        if (cabang.getListItemCabang() == null || cabang.getListItemCabang().size() == 0){
+//            cabang.setListItemCabang(new ArrayList<>());
+//        }
 //
-//        model.addAttribute("bioskop", bioskop);
-//        model.addAttribute("listFilmExisting", listFilm);
-
-        cabang.getListItemCabang().add(new ItemCabangModel());
-        List<ItemCabangModel> listItemCabang = itemCabangService.getListItem();
-
-        model.addAttribute("cabang", cabang);
-        model.addAttribute("listItemCabangExist", listItemCabang);
-        return "form-add-itemcabang";
-    }
+//        cabang.getListItemCabang().add(new ItemCabangModel());
+//        List<ItemCabangModel> listItemCabang = cabang.getListItemCabang();
+//
+//        model.addAttribute("cabang", cabang);
+//        model.addAttribute("listItemCabangExist", listItemCabang);
+//        return "form-add-itemcabang";
+//    }
 
 }
