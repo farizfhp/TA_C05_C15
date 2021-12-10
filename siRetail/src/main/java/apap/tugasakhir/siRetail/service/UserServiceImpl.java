@@ -11,7 +11,7 @@ import java.util.*;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserDB userDB;
 
@@ -21,12 +21,14 @@ public class UserServiceImpl implements UserService{
         user.setPassword(pass);
         return userDB.save(user);
     }
+
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }
+
     @Override
     public List<UserModel> getListUser() {
         return userDB.findAll();

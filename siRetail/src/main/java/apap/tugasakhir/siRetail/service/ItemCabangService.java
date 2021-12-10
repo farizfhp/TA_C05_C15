@@ -13,4 +13,6 @@ public interface ItemCabangService {
     boolean deleteItemCabang(ItemCabangModel item);
 
     Optional<ItemCabangModel> getItemCabangByIdItemCabang(Long idItemCabang);
+
+    ItemCabangModel getItemById(Long idItemCabang);
 }

@@ -29,11 +29,11 @@ public class UserController {
         model.addAttribute("listRole", listRole);
         return "form-add-user";
     }
+
     @PostMapping(value = "/add")
     private String addUserSubmit(
             @ModelAttribute UserModel user,
-            Model model
-    ){
+            Model model) {
         userService.addUser(user);
         model.addAttribute("user", user);
         return "redirect:/";
@@ -43,34 +43,32 @@ public class UserController {
     public String listUser(Model model, final HttpServletRequest httpServletRequest) {
         List<UserModel> listUser = userService.getListUser();
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
-        model.addAttribute("role",role);
-        model.addAttribute ( "listUser",listUser);
-        model.addAttribute("classActiveSettings","active");
-        return "viewall-user" ;
+        model.addAttribute("role", role);
+        model.addAttribute("listUser", listUser);
+        model.addAttribute("classActiveSettings", "active");
+        return "viewall-user";
     }
 
     @GetMapping("/update/{idUser}")
     public String updateUserForm(
             @PathVariable Long idUser,
             Model model,
-            final HttpServletRequest httpServletRequest
-    ){
+            final HttpServletRequest httpServletRequest) {
         UserModel user = userService.getUserById(idUser);
         List<RoleModel> listRole = roleService.getListRole();
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
-        model.addAttribute("role",role);
-        model.addAttribute( "user",user);
+        model.addAttribute("role", role);
+        model.addAttribute("user", user);
         model.addAttribute("listRole", listRole);
-        return"form-update-user" ;
+        return "form-update-user";
     }
 
     @PostMapping("/update")
     public String updateUserSubmit(
             @ModelAttribute UserModel user,
-            Model model
-    ){
+            Model model) {
         userService.updateUser(user);
-        model.addAttribute( "user",user.getUsername());
+        model.addAttribute("user", user.getUsername());
         return "update-user";
     }
 }
