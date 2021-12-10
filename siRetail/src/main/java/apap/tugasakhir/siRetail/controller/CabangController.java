@@ -3,8 +3,6 @@ package apap.tugasakhir.siRetail.controller;
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.model.UserModel;
-import apap.tugasakhir.siRetail.rest.KuponDetail;
-import apap.tugasakhir.siRetail.service.CabangRestService;
 import apap.tugasakhir.siRetail.service.CabangService;
 import apap.tugasakhir.siRetail.service.ItemCabangService;
 import apap.tugasakhir.siRetail.service.UserService;
