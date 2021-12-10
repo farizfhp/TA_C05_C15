@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>SiRetail</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('cabang')"></nav>
+<div class="container">
+
+    <div th:if="*{listCabang.size() !=0}">
+        <h2>Daftar Seluruh Cabang</h2>
+        <br>
+        <table class="table" style="text-align: center">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>No Telepon</th>
+                <th>Ukuran</th>
+                <th>Jumlah Item</th>
+                <th>Status</th>
+                <th>Accept</th>
+                <th>Decline</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cabang, iterationStatus : ${listCabang}"
+                th:class="${iterationStatus.even} ? 'bg-light'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${cabang.idCabang}"></td>
+                <td th:text="${cabang.nama}"></td>
+                <td th:text="${cabang.noTelp}"></td>
+                <td th:text="${cabang.ukuran}"></td>
+                <td th:text="${cabang.listItemCabang.size()}"></td>
+                <td th:if="${cabang.status} == 0">Menunggu Persetujuan</td>
+                <td th:if="${cabang.status} == 1">Ditolak</td>
+                <td th:if="${cabang.status} == 2">Disetujui</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/cabang/request/accept/} + ${cabang.idCabang}">Accept</a>
+                <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+                    <a class="btn btn-sm btn-danger" th:href="@{/cabang/request/decline/} + ${cabang.idCabang}">Decline</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="*{listCabang.size() != 0}">
+        <h2 th:text="'Tidak ada cabang'"></h2>
+    </div>
+    <span sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
+    <a class="btn btn-primary" th:href="@{/cabang/add/}">Tambah Cabang</a>
+    </span>
+<!--    <a class="btn btn-primary" href="/">Home</a>-->
+</div>
+
+</body>
+
+</html>

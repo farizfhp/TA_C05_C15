@@ -18,10 +18,11 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserDB userDB;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel user = userDB.findByUsername(username);
-//        System.out.println(user.getName());
+        // System.out.println(user.getName());
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getNama()));
         return new User(user.getUsername(), user.getPassword(), grantedAuthorities);

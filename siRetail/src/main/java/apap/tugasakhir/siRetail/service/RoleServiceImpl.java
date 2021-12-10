@@ -10,12 +10,12 @@ import java.util.List;
 
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleDB roleDB;
 
     @Override
     public List<RoleModel> getListRole() {
-        return roleDB.findAll() ;
+        return roleDB.findAll();
     }
 }

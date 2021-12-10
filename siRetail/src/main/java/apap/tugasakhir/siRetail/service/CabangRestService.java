@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface CabangRestService {
-    ArrayList<HashMap<String,String>> retrieveListAlamatCabang();
+    ArrayList<HashMap<String, String>> retrieveListAlamatCabang();
+
     CabangModel createCabang(CabangModel cabang);
+
     List<CabangModel> retrieveListCabang();
+
     List<KuponDetail> listCoupon();
 }

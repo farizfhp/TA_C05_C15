@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 @Controller
 public class PageController {
     @Autowired
@@ -18,18 +17,18 @@ public class PageController {
 
     @RequestMapping("/")
     public String home(@ModelAttribute UserModel user,
-                       Model model,
-                       final HttpServletRequest httpServletRequest) {
-        if(userService.getUserByUsername(httpServletRequest.getRemoteUser())==null){
+            Model model,
+            final HttpServletRequest httpServletRequest) {
+        if (userService.getUserByUsername(httpServletRequest.getRemoteUser()) == null) {
             return "home";
         }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
-        model.addAttribute("role",role);
+        model.addAttribute("role", role);
         return "home";
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 }

@@ -6,10 +6,15 @@ import java.util.List;
 
 public interface UserService {
     UserModel addUser(UserModel user);
+
     String encrypt(String password);
+
     List<UserModel> getListUser();
+
     UserModel getUserByUsername(String username);
+
     UserModel getUserById(Long idUser);
+
     void updateUser(UserModel user);
 
 }

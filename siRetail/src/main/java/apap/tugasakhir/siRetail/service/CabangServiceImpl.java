@@ -5,12 +5,13 @@ import apap.tugasakhir.siRetail.repository.CabangDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class CabangServiceImpl implements CabangService{
+public class CabangServiceImpl implements CabangService {
 
     @Autowired
     CabangDB cabangDB;
@@ -31,15 +32,29 @@ public class CabangServiceImpl implements CabangService{
     }
 
     @Override
-    public CabangModel getCabangByIdCabang(Long idCabang){
+    public CabangModel getCabangByIdCabang(Long idCabang) {
         return cabangDB.findByIdCabang(idCabang);
     }
 
     @Override
-    public void deleteCabang(CabangModel cabang) { cabangDB.delete(cabang); }
+    public void deleteCabang(CabangModel cabang) {
+        cabangDB.delete(cabang);
+    }
 
     @Override
     public boolean checkCabang(CabangModel cabang1, CabangModel cabang2) {
         return (cabang1.getIdCabang() == cabang2.getIdCabang()) ? true : false;
+    }
+
+    @Override
+    public List<CabangModel> getListCabangByStatus(Integer status) {
+        List<CabangModel> listAllCabang = getListCabang();
+        List<CabangModel> listCabang = new ArrayList<>();
+
+        for (CabangModel cabang : listAllCabang) {
+            if (cabang.getStatus() == status)
+                listCabang.add(cabang);
+        }
+        return listCabang;
     }
 }
