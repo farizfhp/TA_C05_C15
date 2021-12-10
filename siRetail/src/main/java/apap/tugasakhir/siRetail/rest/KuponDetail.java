@@ -12,7 +12,7 @@ import lombok.Setter;
 public class KuponDetail {
 
     @JsonProperty("id-coupon")
-    private String idCoupon;
+    private Integer idCoupon;
 
     @JsonProperty("coupon-code")
     private String couponCode;
@@ -21,7 +21,7 @@ public class KuponDetail {
     private String couponName;
 
     @JsonProperty("discount-amount")
-    private String discountAmount;
+    private Float discountAmount;
 
     @JsonProperty("expiry-date")
     private String expiryDate;

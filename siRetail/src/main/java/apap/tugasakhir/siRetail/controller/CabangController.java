@@ -31,10 +31,6 @@ public class CabangController {
     @Autowired
     private ItemCabangService itemCabangService;
 
-    @Qualifier("cabangRestServiceImpl")
-    @Autowired
-    private CabangRestService cabangRestService;
-
     @GetMapping("/cabang")
     public String viewAllCabang(Model model) {
         List<CabangModel> listCabang = cabangService.getListCabang();
@@ -150,32 +146,4 @@ public class CabangController {
         return "form-add-itemcabang";
     }
 
-    @GetMapping(value = "/cabang/list-coupon")
-    private String listCoupon(Model model){
-        List<KuponDetail> listCoupon = cabangRestService.listCoupon();
-//        System.out.println(listCoupon.size());
-        model.addAttribute ( "listKupon",listCoupon);
-        model.addAttribute("classActiveSettings","active");
-        model.addAttribute("promoApplied",true) ;
-        return "viewall-kupon" ;
-        //var objResponse1 = JsonConvert.DeserializeObject<List<RetrieveMultipleResponse>>(JsonStr);
-    }
-
-//    @GetMapping("/cabang/apply-coupon/{idCoupon}")
-    //cabang/id item/apply-coupon/idCoupon
-//    public String applyCoupon(
-//            @PathVariable(required = false) String idCoupon, Model model) {
-//        Mono<KuponDetail> listCoupon = cabangRestService.listCoupon();
-//        KuponDetail kuponToUse = new KuponDetail();
-//        for (KuponDetail kupon: listCoupon){
-//            if (kupon.getIdCoupon().equals(idCoupon)){
-//                kuponToUse = kupon;
-//                break;
-//            }
-//        }
-//        Integer idKuponToUse = Integer.parseInt(kuponToUse.getIdCoupon());
-        //set atribut idPromo dari itemCabang jadi idKuponToUse
-
-//        return "view-apply-coupon";
-//    }
 }
