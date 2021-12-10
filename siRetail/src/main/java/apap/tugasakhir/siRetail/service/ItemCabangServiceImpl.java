@@ -56,4 +56,13 @@ public class ItemCabangServiceImpl implements ItemCabangService {
         return itemCabangDB.findByIdItemCabang(idItemCabang);
     }
 
+    @Override
+    public ItemCabangModel getItemById(Long idItemCabang){
+        Optional<ItemCabangModel> item = itemCabangDB.findByIdItemCabang(idItemCabang);
+        if (item.isPresent()) {
+            return item.get();
+        }
+        return null;
+    }
+
 }

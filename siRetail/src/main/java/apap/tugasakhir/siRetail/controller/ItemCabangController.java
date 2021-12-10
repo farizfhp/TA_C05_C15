@@ -212,21 +212,22 @@ public class ItemCabangController {
         return "view-cabang";
     }
 
-    @PostMapping("/itemCabang/delete")
-    public String deletePenjaga(
-            @ModelAttribute CabangModel cabang,
+    @RequestMapping(value = "/itemCabang/delete/{idItemCabang}",
+            method = RequestMethod.GET)
+    public String deleteItemCabang(
+            @PathVariable Long idItemCabang,
+            @ModelAttribute ItemCabangModel itemCabangModel,
             Model model) {
-        model.addAttribute("idCabang", cabang.getIdCabang());
-        boolean res = false;
-        for (ItemCabangModel item : cabang.getListItemCabang()) {
-            res = itemCabangService.deleteItemCabang(item);
-        }
-        if (res == true) {
-            String message = "Item yang dipilih berhasil dihapus.";
-            model.addAttribute("message", message);
-            return "view-cabang";
-        }
-        return "";
+        ItemCabangModel itemCabang = itemCabangService.getItemById(idItemCabang);
+
+        itemCabangService.deleteItemCabang(itemCabang);
+
+        String message = "Item " + itemCabang.getNama() + " berhasil dihapus";
+
+        model.addAttribute("message", message);
+        model.addAttribute("cabang", itemCabang.getCabang());
+
+        return "view-cabang";
     }
 
 }
