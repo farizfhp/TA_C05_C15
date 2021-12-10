@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,6 +23,12 @@ public class ItemCabangServiceImpl implements ItemCabangService{
     @Override
     public void addItemCabang(ItemCabangModel item) {
         itemCabangDB.save(item);
+    }
+
+    @Override
+    public boolean deleteItemCabang(ItemCabangModel item) {
+        itemCabangDB.delete(item);
+        return true;
     }
 
 }

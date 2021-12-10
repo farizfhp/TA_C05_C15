@@ -2,22 +2,23 @@ package apap.tugasakhir.siRetail.controller;
 
 import apap.tugasakhir.siRetail.model.CabangModel;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
-import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
 import apap.tugasakhir.siRetail.rest.KuponDetail;
-import apap.tugasakhir.siRetail.service.*;
-import org.springframework.validation.BindingResult;
-import reactor.core.publisher.Flux;
+import apap.tugasakhir.siRetail.service.CabangRestService;
+import apap.tugasakhir.siRetail.service.CabangService;
+import apap.tugasakhir.siRetail.service.ItemCabangRestService;
+import apap.tugasakhir.siRetail.service.ItemCabangService;
+import apap.tugasakhir.siRetail.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -49,18 +50,12 @@ public class ItemCabangController {
 
         ItemCabangModel item = new ItemCabangModel();
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
-        // cabang.getListItemCabang().add(item);
-        // List<ItemDetail> listItemAll = itemCabangRestService.getAllItem();
-        List<ItemDetail> listItemExist = itemCabangRestService.getAllItem();
-//        List<ItemCabangModel> listItemNew = new ArrayList<>();
+        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
 
-        // System.out.println(Arrays.deepToString(itemCabangRestService.getAllItem().toArray()));
         item.setCabang(cabang);
         model.addAttribute("itemNew", item);
         model.addAttribute("cabang", cabang);
-        // model.addAttribute("itemcabang", item);
-        model.addAttribute("listItemExist", listItemExist);
-//         model.addAttribute("listItemNew", listItemNew);
+        model.addAttribute("listItem", listItem);
         return "form-add-itemcabang";
     }
 
@@ -68,14 +63,9 @@ public class ItemCabangController {
     public String addItemCabangSubmit(String uuid, Integer id, Model model,
             @ModelAttribute ItemCabangModel item,
             final HttpServletRequest httpServletRequest) {
-
-        // for ( ItemCabangModel itemCabang : itemCabangService.getListItem() ){
-        // if (itemCabang.getIdItemCabang().equals())
-        // }
-        // item.getCabang().setListItemCabang(listItemNew);
         
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
-
+            
         ItemCabangModel itemTemp = new ItemCabangModel();
         for (ItemDetail itemIter:listItem){
             if (itemIter.getUuid().equals(item.getUuidItem())){
@@ -89,12 +79,6 @@ public class ItemCabangController {
         }
         itemCabangService.addItemCabang(itemTemp);
 
-        // item.getCabang().getListItemCabang().add(itemTemp);
-
-        // ItemCabangModel itemEx = itemCabangRestService.getItemCabangByUuid(uuid);
-        // item.getCabang().getListItemCabang().add(itemEx);
-        // itemCabangService.addItemCabang(item);
-        // model.addAttribute("itemEx", item.getNama());
         String message = "Item dengan nama " + itemTemp.getNama() + " berhasil ditambahkan.";
         model.addAttribute("message", message);
         model.addAttribute("listItemCabang", item.getCabang().getListItemCabang());
@@ -102,19 +86,49 @@ public class ItemCabangController {
         return "view-cabang";
     }
 
-    @PostMapping(value = "/itemCabang/add", params = {"addRow"})
-    private String addRowItemMultiple(@ModelAttribute CabangModel cabang, Model model) {
-        if (cabang.getListItemCabang() == null || cabang.getListItemCabang().size() == 0){
-            cabang.setListItemCabang(new ArrayList<>());
-            System.out.println("bikin baru");
-        }
-        cabang.getListItemCabang().add(new ItemCabangModel());
-        System.out.println("nambah baru");
-        List<ItemCabangModel> listItemCabang = cabang.getListItemCabang();
+    @GetMapping("/itemCabang/tambahStok/{idCabang}/{uuidCabang}")
+    public String addStokItemCabangForm(
+            @PathVariable String uuidCabang,
+            @PathVariable Long idCabang,
+            Model model) {
 
+        ItemCabangModel item = new ItemCabangModel();
+        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
+        CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
+        
+        item.setCabang(cabang);
         model.addAttribute("cabang", cabang);
-        model.addAttribute("listItemCabangExist", listItemCabang);
-        return "form-add-itemcabang";
+        model.addAttribute("itemNew", item);
+        model.addAttribute("listItem", listItem);
+        return "form-add-stok-request";
+    }
+
+    @PostMapping(value = "/itemCabang/tambahStok", params = { "save" })
+    public String addStokItemCabangSubmit(Model model,
+            @ModelAttribute ItemCabangModel item,
+            final HttpServletRequest httpServletRequest) {
+        
+        List<ItemDetail> listItem = itemCabangRestService.getAllItem();
+        System.out.println("ITEM CABANGG == " + item.getCabang().getIdCabang());
+
+        ItemCabangModel itemTemp = new ItemCabangModel();
+        for (ItemDetail itemIter:listItem){
+            if (itemIter.getUuid().equals(item.getUuidItem())){
+                itemTemp.setUuidItem(item.getUuidItem());
+                itemTemp.setCabang(item.getCabang());
+                itemTemp.setNama(itemIter.getNama());
+                itemTemp.setHarga(itemIter.getHarga());
+                itemTemp.setStok(item.getStok());
+                itemTemp.setKategori(itemIter.getKategori());
+            }
+        }
+        // itemCabangService.addItemCabang(itemTemp);
+        ItemCabangDetail response = itemCabangRestService.updateStok(itemTemp);
+        // System.out.println("UPDATE STOK ITEM ===== " + response.getTambahanStok());
+        // System.out.println("UPDATE STOK ITEM ===== " + response);
+
+        String message = "Berhasil melakukan request penambahan stok dari item dengan UUID " + response.getUuidItem() + " sebanyak " + response.getTambahanStok() + " .";
+        return returnMessage(model, httpServletRequest, message);
     }
 
     private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
@@ -125,27 +139,6 @@ public class ItemCabangController {
         }
         String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
         model.addAttribute("role", role);
-        model.addAttribute("message", message);
-        return "home";
-    }
-
-    @GetMapping("/add-stok/{uuidItem}")
-    public String viewAllCabang(
-            @PathVariable String uuidItem,
-            Model model) {
-        ItemCabangModel itemCabangUpdate = itemCabangRestService.getItemCabangByUuid(uuidItem);
-        model.addAttribute("itemCabang", itemCabangUpdate);
-        return "form-add-stok";
-    }
-
-    @PostMapping("/add-stok")
-    public String viewAllCabang(
-            @ModelAttribute ItemCabangModel itemCabangUpdate,
-            Model model,
-            final HttpServletRequest httpServletRequest) {
-
-        ItemCabangDetail itemDetail = itemCabangRestService.updateStok(itemCabangUpdate).block();
-        String message = "Permintaan untuk menaikkan stok item dengan UUID " + itemDetail.getUuidItem() + " berhasil.";
         model.addAttribute("message", message);
         return "home";
     }
@@ -178,5 +171,23 @@ public class ItemCabangController {
 
         return "redirect:/cabang";
     }
+    @PostMapping("/itemCabang/delete")
+    public String deletePenjaga(
+            @ModelAttribute CabangModel cabang,
+            Model model
+    ) {
+        model.addAttribute("idCabang", cabang.getIdCabang());
+        boolean res = false;
+        for (ItemCabangModel item : cabang.getListItemCabang()) {
+            res = itemCabangService.deleteItemCabang(item);
+        }
+        if (res == true) {
+            String message = "Item yang dipilih berhasil dihapus.";
+            model.addAttribute("message", message);
+            return "view-cabang";
+        }
+        return "";
+    }
+
 
 }
