@@ -127,7 +127,7 @@ public class ItemCabangController {
         // System.out.println("UPDATE STOK ITEM ===== " + response.getTambahanStok());
         // System.out.println("UPDATE STOK ITEM ===== " + response);
 
-        String message = "Item dengan ID " + response.getUuidItem() + " berhasil ditambahkan.";
+        String message = "Berhasil melakukan request penambahan stok dari item dengan UUID " + response.getUuidItem() + " sebanyak " + response.getTambahanStok() + " .";
         return returnMessage(model, httpServletRequest, message);
     }
 

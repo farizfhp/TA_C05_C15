@@ -43,7 +43,7 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
     private CabangService cabangService;
 
     public ItemCabangRestServiceImpl(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://0a5f4b1b-c14b-48f4-ac59-a2786792046e.mock.pstmn.io").build();
+        this.webClient = webClientBuilder.baseUrl("https://24beed10-c76c-4236-a73b-3bb5f713add6.mock.pstmn.io").build();
         this.webClientItem = webClientBuilder.baseUrl("https://si-item.herokuapp.com").build();
     }
 
@@ -59,32 +59,18 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
 
         String namaKategori = itemCabangUpdate.getKategori().replaceAll(" & ", "_DAN_").replace(" ", "_");
         itemDetail.setIdKategori(Kategori.valueOf(namaKategori).ordinal() + 1);
-        ItemCabangDetail response = this.webClient.post().uri("/api/request-update-item/add")
+        ResponseReader response = this.webClient.post().uri("/api/request-update-item/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(itemDetail), ItemCabangDetail.class)
                 .retrieve()
-                .bodyToMono(ItemCabangDetail.class).block();
-        return response;
-    }
-
-    @Override
-    public ItemCabangModel getItemCabangById(Long idItemCabang) {
-        Optional<ItemCabangModel> cabang = itemCabangDB.findByIdItemCabang(idItemCabang);
-        if (cabang.isPresent()) {
-            return cabang.get();
-        } else {
-            throw new NoSuchElementException();
-        }
-    }
-
-    @Override
-    public ItemCabangModel getItemCabangByUuid(String uuidItem) {
-        Optional<ItemCabangModel> bioskop = itemCabangDB.findByUuidItem(uuidItem);
-        if (bioskop.isPresent()) {
-            return bioskop.get();
-        } else {
-            throw new NoSuchElementException();
-        }
+                .bodyToMono(ResponseReader.class).block();
+        System.out.println(response);
+        ItemCabangDetail item = new ItemCabangDetail();
+        JsonNode result = response.getResult();
+        item.setTambahanStok(result.get("tambahanStok").intValue());
+        item.setUuidItem(result.get("idItem").textValue());
+        item.setIdKategori(result.get("idKategori").intValue());
+        return item;
     }
 
     @Override
@@ -107,6 +93,26 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
 
         return itemCabangList;
 
+    }
+
+    @Override
+    public ItemCabangModel getItemCabangById(Long idItemCabang) {
+        Optional<ItemCabangModel> bioskop = itemCabangDB.findByIdItemCabang(idItemCabang);
+        if (bioskop.isPresent()) {
+            return bioskop.get();
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    @Override
+    public ItemCabangModel getItemCabangByUuid(String uuidItem) {
+        Optional<ItemCabangModel> bioskop = itemCabangDB.findByUuidItem(uuidItem);
+        if (bioskop.isPresent()) {
+            return bioskop.get();
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override

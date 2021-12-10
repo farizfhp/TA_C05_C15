@@ -5,6 +5,7 @@ import java.util.List;
 import apap.tugasakhir.siRetail.model.ItemCabangModel;
 import apap.tugasakhir.siRetail.rest.ItemCabangDetail;
 import apap.tugasakhir.siRetail.rest.ItemDetail;
+import apap.tugasakhir.siRetail.rest.ResponseReader;
 
 public interface ItemCabangRestService {
     ItemCabangDetail updateStok(ItemCabangModel itemCabangUpdate);
