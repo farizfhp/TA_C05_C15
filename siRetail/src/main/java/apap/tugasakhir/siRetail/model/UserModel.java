@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "user")
+@Table(name = "dbuser")
 @JsonIgnoreProperties(value = { "listCabang" }, allowSetters = true)
 
 public class UserModel {
