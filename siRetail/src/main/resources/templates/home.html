@@ -33,9 +33,9 @@
             <div class=" my-3 d-flex justify-content-center">
                 <a th:href="@{/user/viewall}"class="mx-2 btn btn-warning">Lihat semua user</a>
 <!--                <span th:if="${role} == 'Kepala Retail'">-->
-                <span  sec:authorize="hasAuthority('Kepala Retail')">
+                <!-- <span  sec:authorize="hasAuthority('Kepala Retail')"> -->
                     <a th:href="@{/user/add}" class="mx-2 btn btn-outline-warning">Tambah user</a>
-                </span>
+                <!-- </span> -->
             </div>
             <div class=" my-3 d-flex justify-content-center">
 <!--            <a th:href="@{/user/changepassword(username=${#httpServletRequest.userPrincipal.name})}" class="mx-2 btn btn-outline-warning">Ganti Password</a>-->
