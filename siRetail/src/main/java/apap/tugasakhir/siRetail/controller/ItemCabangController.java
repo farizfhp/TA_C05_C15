@@ -229,5 +229,23 @@ public class ItemCabangController {
 
         return "view-cabang";
     }
+    @PostMapping("/itemCabang/delete")
+    public String deletePenjaga(
+            @ModelAttribute CabangModel cabang,
+            Model model
+    ) {
+        model.addAttribute("idCabang", cabang.getIdCabang());
+        boolean res = false;
+        for (ItemCabangModel item : cabang.getListItemCabang()) {
+            res = itemCabangService.deleteItemCabang(item);
+        }
+        if (res == true) {
+            String message = "Item yang dipilih berhasil dihapus.";
+            model.addAttribute("message", message);
+            return "view-cabang";
+        }
+        return "";
+    }
+
 
 }
