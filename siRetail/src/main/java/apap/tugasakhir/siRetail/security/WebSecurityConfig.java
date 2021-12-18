@@ -50,13 +50,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     // }
 
 
-    // @Autowired
-    // public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    //     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    //     auth.inMemoryAuthentication()
-    //             .passwordEncoder(encoder)
-    //             .withUser("nontonFilm").password(encoder.encode("21cineplux"))
-    //             // .roles("USER");
-    //            .roles("Kepala Retail");
-    // }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.inMemoryAuthentication()
+                .passwordEncoder(encoder)
+                .withUser("nontonFilm").password(encoder.encode("21cineplux"))
+                // .roles("USER");
+               .roles("Kepala Retail");
+    }
 }
