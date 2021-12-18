@@ -59,6 +59,9 @@
     <span sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')">
     <a class="btn btn-primary" th:href="@{/cabang/add/}">Tambah Cabang</a>
     </span>
+    <span sec:authorize="hasAuthority('Kepala Retail')">
+    <a class="btn btn-primary" th:href="@{/cabang/view/onhold}">Manage Cabang</a>
+    </span>
 <!--    <a class="btn btn-primary" href="/">Home</a>-->
 </div>
 
