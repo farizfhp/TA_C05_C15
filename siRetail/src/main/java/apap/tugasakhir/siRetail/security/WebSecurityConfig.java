@@ -26,12 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //                .antMatchers("/cabang/delete/**").hasAuthority("KEPALA RETAIL")
 //                .antMatchers("/cabang/delete/**").hasAuthority("MANAGER CABANG")
                 .antMatchers("/api/v1/**").permitAll()
-                // .anyRequest().authenticated()
-                // .and()
-                // .formLogin()
-                // .loginPage("/login").permitAll()
-                // .and()
-                // .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll()
                 ;
     }
 
