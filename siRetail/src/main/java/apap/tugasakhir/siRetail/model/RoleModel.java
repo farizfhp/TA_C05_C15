@@ -17,18 +17,18 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "role")
-@JsonIgnoreProperties(value={"listUser"},allowSetters = true)
+@JsonIgnoreProperties(value = { "listUser" }, allowSetters = true)
 public class RoleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;
 
     @NotNull
-    @Size(max =100)
+    @Size(max = 100)
     @Column(name = "nama", nullable = false)
     private String nama;
 
-    //Relasi dengan UserModel
+    // Relasi dengan UserModel
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserModel> listUser;
 

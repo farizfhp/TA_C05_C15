@@ -1,4 +1,4 @@
-package apap.tugasakhir.siRetail.service;
+package apap.tugasakhir.siRetail.security;
 
 import apap.tugasakhir.siRetail.model.UserModel;
 import apap.tugasakhir.siRetail.repository.UserDB;
@@ -14,14 +14,18 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserDB userDB;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel user = userDB.findByUsername(username);
-//        System.out.println(user.getName());
+        // System.out.println(user.getName());
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getNama()));
         return new User(user.getUsername(), user.getPassword(), grantedAuthorities);

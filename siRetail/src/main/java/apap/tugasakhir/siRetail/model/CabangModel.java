@@ -47,13 +47,13 @@ public class CabangModel {
     @Column(nullable = false)
     private String noTelp;
 
-    //Relasi dengan UserModel
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_user", referencedColumnName = "idUser", nullable = false)
+    // Relasi dengan UserModel
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user", referencedColumnName = "idUser", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserModel user;
 
-    //Relasi dengan ItemCabangModel
+    // Relasi dengan ItemCabangModel
     @OneToMany(mappedBy = "cabang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ItemCabangModel> listItemCabang;
 

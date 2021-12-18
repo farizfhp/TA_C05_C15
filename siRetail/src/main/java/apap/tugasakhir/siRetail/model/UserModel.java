@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties(value={"listCabang"},allowSetters = true)
+@JsonIgnoreProperties(value = { "listCabang" }, allowSetters = true)
 
 public class UserModel {
     @Id
@@ -27,26 +27,26 @@ public class UserModel {
     private Long idUser;
 
     @NotNull
-    @Size(max =50)
-    @Column (name = "username", nullable = false, unique = true)
+    @Size(max = 50)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotNull
-    @Size(max =50)
+    @Size(max = 50)
     @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
     @Lob
-    @Size(max =100)
+    @Size(max = 100)
     @Column(name = "password", nullable = false)
     private String password;
 
-    //Relasi dengan CabangModel
+    // Relasi dengan CabangModel
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CabangModel> listCabang;
 
-    //Relasi dengan RoleModel
+    // Relasi dengan RoleModel
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_role", referencedColumnName = "idRole", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

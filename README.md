@@ -22,7 +22,7 @@
 | 1906305833 | Fariz Habibie Permana | 8 10 11 14 |
 | 1906399676 | Josia Priscilla Pittauli | 12 18 |
 | 1906399291 | Az-Zahra Syamsa Rahmita Putri | 7 13 13a 13b |
-| 1906399770 | Fahira Anya Katili | 9 15 16 |
+| 1906399770 | Fahira Anya Katili | 9 15 16 17 |
 ---
 **Kontrak Tahap 3 Tugas Akhir**
 

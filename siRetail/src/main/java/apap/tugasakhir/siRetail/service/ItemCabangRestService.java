@@ -18,4 +18,7 @@ public interface ItemCabangRestService {
 
     void applyCoupon(Long idItemCabang, Integer idCoupon, Float discountAmount);
 
+    ResponseReader updateSiItem(ItemCabangModel item, Integer stokUpdate);
+
+    Integer getItemStok(String uuid);
 }
