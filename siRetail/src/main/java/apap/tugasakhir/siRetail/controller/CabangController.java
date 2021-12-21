@@ -38,11 +38,14 @@ public class CabangController {
         if (role.equals("Manager Cabang")) {
             System.out.println("MASUKK");
             for (CabangModel cabang : listCabang) {
-                if (cabang.getUser().getUsername()
-                        .equals(userService.getUserByUsername(httpServletRequest.getRemoteUser()).getUsername())) {
-                    System.out.println("MASUK JUGA");
-                    listCabangManager.add(cabang);
+                if (cabang.getUser() != null) {
+                    if (cabang.getUser().getUsername()
+                            .equals(userService.getUserByUsername(httpServletRequest.getRemoteUser()).getUsername())) {
+                        System.out.println("MASUK JUGA");
+                        listCabangManager.add(cabang);
+                    }
                 }
+
             }
             model.addAttribute("listCabang", listCabangManager);
             return "viewall-cabang";

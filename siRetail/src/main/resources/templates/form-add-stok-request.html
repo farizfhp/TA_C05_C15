@@ -24,7 +24,7 @@
                                 <tr>
                                     <td>
                                         <select name="uuidItem" form-control>
-                                            <option selected value=""> -- Pilih Item -- </option>
+                                            <option selected disabled value=""> -- Pilih Item -- </option>
                                             <option th:each="item : ${listItem}" th:value="${item.uuid}" th:text="${item.nama}" name="uuidItem"></option>
                                         </select>
 
