@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Tambah Item Pada Cabang</div>
+                <div class="card-header">Request Tambah Stok Item Pada Cabang</div>
                 <div class="card-body">
                     <form th:action="@{/itemCabang/tambahStok}" method="POST" th:object="${itemNew}">
                         <table class="table">
@@ -24,7 +24,7 @@
                                 <tr>
                                     <td>
                                         <select name="uuidItem" form-control>
-                                            <option selected value=""> -- Pilih Item -- </option>
+                                            <option selected disabled value=""> -- Pilih Item -- </option>
                                             <option th:each="item : ${listItem}" th:value="${item.uuid}" th:text="${item.nama}" name="uuidItem"></option>
                                         </select>
 

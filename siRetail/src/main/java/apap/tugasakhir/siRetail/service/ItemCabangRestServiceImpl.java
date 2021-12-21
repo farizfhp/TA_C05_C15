@@ -44,7 +44,7 @@ public class ItemCabangRestServiceImpl implements ItemCabangRestService {
     private CabangService cabangService;
 
     public ItemCabangRestServiceImpl(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://24beed10-c76c-4236-a73b-3bb5f713add6.mock.pstmn.io").build();
+        this.webClient = webClientBuilder.baseUrl("https://sifactory-c05-14.herokuapp.com").build();
         this.webClientItem = webClientBuilder.baseUrl("https://si-item.herokuapp.com").build();
     }
 

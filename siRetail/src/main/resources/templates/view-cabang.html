@@ -75,6 +75,9 @@
                         <p th:text="': ' + ${cabang.noTelp}"></p>
                     </div>
                 </div>
+                <a sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" class="btn btn-primary" th:href="@{/itemCabang/add/} + ${cabang.idCabang}">Tambah ItemCabang</a>
+            <a class="btn btn-warning" th:href="@{/itemCabang/tambahStok/} + ${cabang.idCabang}">Request Tambah Stok Item</a>
+            <a sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" class="btn btn-danger" th:href="@{'/cabang/delete/' + ${cabang.idCabang}}">Delete</a>
                 <div th:if="${cabang.listItemCabang!=null}">
                     <div th:if="${cabang.listItemCabang.size() !=0}">
                         <form th:action="@{/itemCabang/delete}" th:object="${cabang}" method="POST">
@@ -87,7 +90,6 @@
                                     <th>Harga</th>
                                     <th>Stok</th>
                                     <th>Kategori</th>
-                                    <th>Request Tambah Stok</th>
                                     <th sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" >Promo</th>
                                     <th>Hapus</th>
                                 </tr>
@@ -101,9 +103,6 @@
                                     <td th:text="${itemCabang.harga}"></td>
                                     <td th:text="${itemCabang.stok}"></td>
                                     <td th:text="${itemCabang.kategori}"></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-warning" th:href="@{/itemCabang/tambahStok/} + ${cabang.idCabang} + @{/} + ${itemCabang.uuidItem}">Request</a>
-                                    </td>
                                     <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" th:if="${itemCabang.idPromo != null}" th:text="${itemCabang.idPromo}"></td>
                                     <td sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" th:unless="${itemCabang.idPromo != null}">
                                         <a class="btn btn-sm btn-primary" th:href="@{/itemCabang/promo/}+ ${itemCabang.idItemCabang}">Terapkan Promo</a>
@@ -124,8 +123,6 @@
             </div>
             <br>
             <a class="btn btn-primary" th:href="@{/cabang}">Kembali</a>
-            <a sec:authorize="hasAuthority('Kepala Retail')" class="btn btn-primary" th:href="@{/itemCabang/add/} + ${cabang.idCabang}">Tambah ItemCabang</a>
-            <a sec:authorize="hasAuthority('Kepala Retail') or hasAuthority('Manager Cabang')" class="btn btn-danger" th:href="@{'/cabang/delete/' + ${cabang.idCabang}}">Delete</a>
         </div>
     </div>
 </div>
