@@ -118,7 +118,6 @@ public class CabangController {
             final HttpServletRequest httpServletRequest) {
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
         model.addAttribute("cabang", cabang);
-
         if (cabang.getListItemCabang().size() == 0) {
             cabangService.deleteCabang(cabang);
             String message = "Cabang dengan nama " + cabang.getNama() + " berhasil dihapus.";

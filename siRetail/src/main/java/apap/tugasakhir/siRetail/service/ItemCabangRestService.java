@@ -21,5 +21,4 @@ public interface ItemCabangRestService {
     ResponseReader updateSiItem(ItemCabangModel item, Integer stokUpdate);
 
     Integer getItemStok(String uuid);
-
 }
