@@ -33,10 +33,12 @@ public class UserController {
     @PostMapping(value = "/add")
     private String addUserSubmit(
             @ModelAttribute UserModel user,
-            Model model) {
+            Model model,
+            final HttpServletRequest httpServletRequest) {
         userService.addUser(user);
         model.addAttribute("user", user);
-        return "redirect:/";
+        String message = "User dengan username " + user.getUsername() + " berhasil ditambahkan.";
+        return returnMessage(model, httpServletRequest, message);
     }
 
     @GetMapping("/viewall")
@@ -66,9 +68,24 @@ public class UserController {
     @PostMapping("/update")
     public String updateUserSubmit(
             @ModelAttribute UserModel user,
-            Model model) {
+            Model model,
+            final HttpServletRequest httpServletRequest) {
         userService.updateUser(user);
         model.addAttribute("user", user.getUsername());
-        return "update-user";
+        String message = "User dengan username " + user.getUsername() + " berhasil diupdate.";
+        return returnMessage(model, httpServletRequest, message);
     }
+
+    private String returnMessage(Model model, HttpServletRequest httpServletRequest, String message) {
+        model.addAttribute("message", message);
+
+        if (userService.getUserByUsername(httpServletRequest.getRemoteUser()) == null) {
+            return "home";
+        }
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        model.addAttribute("role", role);
+
+        return "home";
+    }
+
 }

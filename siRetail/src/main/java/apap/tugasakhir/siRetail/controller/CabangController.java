@@ -143,7 +143,7 @@ public class CabangController {
             String message = "Cabang dengan nama " + cabang.getNama() + " berhasil dihapus.";
             return returnMessage(model, httpServletRequest, message);
         } else {
-            return "delete-cabang-gagal";
+            return returnMessage(model, httpServletRequest, "Cabang tidak dapat dihapus karena masih memiliki item.");
         }
 
     }

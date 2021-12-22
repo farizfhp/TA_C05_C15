@@ -23,8 +23,8 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select name="uuidItem" form-control>
-                                            <option selected disabled value=""> -- Pilih Item -- </option>
+                                        <select required name="uuidItem" form-control>
+                                            <option selected disabled aria-readonly="true" value=""> -- Pilih Item -- </option>
                                             <option th:each="item : ${listItem}" th:value="${item.uuid}" th:text="${item.nama}" name="uuidItem"></option>
                                         </select>
 
