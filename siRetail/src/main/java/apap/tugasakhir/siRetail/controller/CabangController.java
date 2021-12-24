@@ -29,8 +29,28 @@ public class CabangController {
     private ItemCabangService itemCabangService;
 
     @GetMapping("/cabang")
-    public String viewAllCabang(Model model) {
+    public String viewAllCabang(Model model,
+            final HttpServletRequest httpServletRequest) {
+        String role = userService.getUserByUsername(httpServletRequest.getRemoteUser()).getRole().getNama();
+        System.out.println(role);
+        List<CabangModel> listCabangManager = new ArrayList<>();
         List<CabangModel> listCabang = cabangService.getListCabang();
+        if (role.equals("Manager Cabang")) {
+            System.out.println("MASUKK");
+            for (CabangModel cabang : listCabang) {
+                if (cabang.getUser() != null) {
+                    if (cabang.getUser().getUsername()
+                            .equals(userService.getUserByUsername(httpServletRequest.getRemoteUser()).getUsername())) {
+                        System.out.println("MASUK JUGA");
+                        listCabangManager.add(cabang);
+                    }
+                }
+
+            }
+            model.addAttribute("listCabang", listCabangManager);
+            return "viewall-cabang";
+        }
+
         model.addAttribute("listCabang", listCabang);
         return "viewall-cabang";
     }
@@ -123,7 +143,7 @@ public class CabangController {
             String message = "Cabang dengan nama " + cabang.getNama() + " berhasil dihapus.";
             return returnMessage(model, httpServletRequest, message);
         } else {
-            return "delete-cabang-gagal";
+            return returnMessage(model, httpServletRequest, "Cabang tidak dapat dihapus karena masih memiliki item.");
         }
 
     }

@@ -12,6 +12,8 @@ import apap.tugasakhir.siRetail.rest.KuponDetail;
 import apap.tugasakhir.siRetail.rest.ResponseReader;
 import apap.tugasakhir.siRetail.rest.Setting;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -76,16 +78,19 @@ public class CabangRestServiceImpl implements CabangRestService {
     @Override
     public List<KuponDetail> listCoupon() {
         List<KuponDetail> result = new ArrayList<>();
-        ResponseReader response = this.webClient.get().uri("rest/coupon/neededresponse")
+        ResponseReader response = this.webClient.get().uri("coupon/allCoupon")
                 .retrieve()
                 .bodyToMono(ResponseReader.class).block();
-
+        JsonNode node = response.getResult();
+        String pr2 = node.toPrettyString();
+        System.out.println(pr2);
+        
         for (JsonNode kupon : response.getResult()) {
-            Integer idCoupon = kupon.get("id-coupon").intValue();
-            String couponCode = kupon.get("coupon-code").textValue();
-            String couponName = kupon.get("coupon-name").textValue();
-            Float discountAmount = kupon.get("discount-amount").floatValue();
-            String expiryDate = kupon.get("expiry-date").textValue();
+            Integer idCoupon = kupon.get("id").intValue();
+            String couponCode = kupon.get("couponCode").textValue();
+            String couponName = kupon.get("couponName").textValue();
+            Float discountAmount = kupon.get("discountAmount").floatValue();
+            String expiryDate = kupon.get("expiryDate").textValue();
             result.add(new KuponDetail(idCoupon, couponCode, couponName, discountAmount, expiryDate));
         }
         return result;

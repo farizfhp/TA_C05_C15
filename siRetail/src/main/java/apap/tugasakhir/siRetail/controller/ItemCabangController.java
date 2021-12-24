@@ -49,11 +49,10 @@ public class ItemCabangController {
             @PathVariable Long idCabang,
             Model model) {
 
-        ItemCabangModel item = new ItemCabangModel();
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
         List<ItemCabangModel> listItemCabang = new ArrayList<>();
-
+        int counter =0;
         for (ItemDetail itemIter : listItem) {
             ItemCabangModel itemTemp = new ItemCabangModel();
             itemTemp.setUuidItem(itemIter.getUuid());
@@ -64,17 +63,21 @@ public class ItemCabangController {
             itemTemp.setStok(0);
             itemTemp.setKategori(itemIter.getKategori());
             listItemCabang.add(itemTemp);
+            counter++;
+            if (counter >250) break;
         }
 
-        item.setCabang(cabang);
+
         // for (ItemCabangModel itemIter : listItemCabang) {
         // System.out.println(itemIter.getNama());
         // }
 
         cabang.setListItemCabang(listItemCabang);
-        model.addAttribute("itemNew", item);
         model.addAttribute("cabang", cabang);
         model.addAttribute("listItem", listItemCabang);
+        System.out.println(listItemCabang.size());
+        System.out.println(listItem.size());
+        System.out.println(Integer.MAX_VALUE);
         return "form-add-itemcabang";
     }
 
@@ -97,7 +100,9 @@ public class ItemCabangController {
         // }
         // }
         List<ItemCabangModel> listItem = cabang.getListItemCabang();
+        System.out.println("Objek listItem" + listItem);
         for (ItemCabangModel itemIter : listItem) {
+            System.out.println(itemIter.getUuidItem());
             if (itemIter.getStok() > 0) {
                 itemCabangService.addItemCabang(itemIter);
                 System.out.println(itemIter.getStok());
@@ -119,18 +124,19 @@ public class ItemCabangController {
         return "view-cabang";
     }
 
-    @GetMapping("/itemCabang/tambahStok/{idCabang}/{uuidCabang}")
+    @GetMapping("/itemCabang/tambahStok/{idCabang}")
     public String addStokItemCabangForm(
-            @PathVariable String uuidCabang,
             @PathVariable Long idCabang,
             Model model) {
 
         ItemCabangModel item = new ItemCabangModel();
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
         CabangModel cabang = cabangService.getCabangByIdCabang(idCabang);
+        Integer stok = 0;
 
         item.setCabang(cabang);
         model.addAttribute("cabang", cabang);
+        model.addAttribute("stok", stok);
         model.addAttribute("itemNew", item);
         model.addAttribute("listItem", listItem);
         return "form-add-stok-request";
@@ -139,10 +145,11 @@ public class ItemCabangController {
     @PostMapping(value = "/itemCabang/tambahStok", params = { "save" })
     public String addStokItemCabangSubmit(Model model,
             @ModelAttribute ItemCabangModel item,
+            // @ModelAttribute ItemCabangModel itemNew,
             final HttpServletRequest httpServletRequest) {
 
         List<ItemDetail> listItem = itemCabangRestService.getAllItem();
-        System.out.println("ITEM CABANGG == " + item.getCabang().getIdCabang());
+        System.out.println("STOK ITEM NAMBAH == " + item.getStok());
 
         ItemCabangModel itemTemp = new ItemCabangModel();
         for (ItemDetail itemIter : listItem) {
