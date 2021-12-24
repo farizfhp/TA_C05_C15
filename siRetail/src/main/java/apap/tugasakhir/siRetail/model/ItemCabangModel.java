@@ -1,5 +1,6 @@
 package apap.tugasakhir.siRetail.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Entity
 @Table(name = "item_cabang")
-
+@JsonIgnoreProperties(value = {"cabang"}, allowSetters = true)
 public class ItemCabangModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
